@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "notice": "No API key, so this request shares one free daily budget ($0.10) with everyone on your network's IP address. Get a free key with its own $1/day at https://openalex.org/settings/api and add api_key=YOUR_KEY to your requests. An AI agent can get one for its user in one call: POST https://api.openalex.org/api-keys with {\"email\": \"<your user's email>\"}; we email them a link, and the key works once they click it. Docs for agents: https://help.openalex.org/llms.txt",
+    "count": 56023,
+    "db_response_time_ms": 204,
+    "page": 1,
+    "per_page": 3,
+    "groups_count": null,
+    "x_query": {
+      "oql": "get works where full text has (rate limiting strategies public apis)",
+      "x_new_oql": "get works with (rate limiting strategies public apis) in the full text",
+      "oqo": {
+        "get_rows": "works",
+        "filter_rows": [
+          {
+            "column_id": "fulltext.search",
+            "value": "rate limiting strategies public apis",
+            "operator": "has"
+          }
+        ]
+      },
+      "url": "/works?filter=fulltext.search:rate limiting strategies public apis&per_page=3"
+    },
+    "cost_usd": 0.001
+  },
+  "results": [
+    {
+      "id": "https://openalex.org/W2971184937",
+      "display_name": "On Computing Throttling Rate Limits in Web APIs through Statistical Inference",
+      "doi": "https://doi.org/10.1109/icws.2019.00075",
+      "publication_year": 2019,
+      "cited_by_count": 9,
+      "primary_location": {
+        "id": "doi:10.1109/icws.2019.00075",
+        "doi": "https://doi.org/10.1109/icws.2019.00075",
+        "is_oa": false,
+        "landing_page_url": "https://doi.org/10.1109/icws.2019.00075",
+        "pdf_url": null,
+        "source": {
+          "id": "https://openalex.org/S4363608934",
+          "display_name": "IEEE International Conference on Web Services (ICWS)",
+          "issn_l": null,
+          "issn": null,
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": false,
+          "listed_in": [],
+          "host_organization": null,
+          "host_organization_name": null,
+          "host_organization_lineage": [],
+          "host_organization_lineage_names": [],
+          "type": "conference"
+        },
+        "license": null,
+        "license_id": null,
+        "version": "publishedVersion",
+        "is_accepted": true,
+        "is_published": true,
+        "raw_source_name": "2019 IEEE International Conference on Web Services (ICWS)",
+        "raw_type": "proceedings-article"
+      }
+    },
+    {
+      "id": "https://openalex.org/W7127644783",
+      "display_name": "Rethinking HTTP API Rate Limiting: A Client-Side Approach",
+      "doi": "https://doi.org/10.1109/ccnc65079.2026.11366354",
+      "publication_year": 2026,
+      "cited_by_count": 0,
+      "primary_location": {
+        "id": "doi:10.1109/ccnc65079.2026.11366354",
+        "doi": "https://doi.org/10.1109/ccnc65079.2026.11366354",
+        "is_oa": false,
+        "landing_page_url": "https://doi.org/10.1109/ccnc65079.2026.11366354",
+        "pdf_url": null,
+        "source": null,
+        "license": null,
+        "license_id": null,
+        "version": "publishedVersion",
+        "is_accepted": true,
+        "is_published": true,
+        "raw_source_name": "2026 IEEE 23rd Consumer Communications &amp;amp; Networking Conference (CCNC)",
+        "raw_type": "proceedings-article"
+      }
+    },
+    {
+      "id": "https://openalex.org/W7160733623",
+      "display_name": "Design and Documentation of a Public REST API",
+      "doi": null,
+      "publication_year": 2026,
+      "cited_by_count": 0,
+      "primary_location": {
+        "id": "pmh:oai:www.theseus.fi:10024/916975",
+        "doi": null,
+        "is_oa": true,
+        "landing_page_url": "http://www.theseus.fi/handle/10024/916975",
+        "pdf_url": "http://www.theseus.fi/bitstream/10024/916975/2/Khaing_Lawunn.pdf",
+        "source": {
+          "id": "https://openalex.org/S4306400928",
+          "display_name": "Theseus (Ammattikorkeakoulujen)",
+          "issn_l": null,
+          "issn": null,
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": false,
+          "listed_in": [],
+          "host_organization": null,
+          "host_organization_name": null,
+          "host_organization_lineage": [],
+          "host_organization_lineage_names": [],
+          "type": "repository"
+        },
+        "license": null,
+        "license_id": null,
+        "version": "submittedVersion",
+        "is_accepted": false,
+        "is_published": false,
+        "raw_source_name": null,
+        "raw_type": "fi=AMK-opinn\u00e4ytety\u00f6|sv=YH-examensarbete|en=Bachelor's thesis|"
+      }
+    }
+  ],
+  "group_by": []
+}

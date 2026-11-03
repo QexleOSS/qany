@@ -1,0 +1,137 @@
+{
+  "items": [
+    {
+      "tags": [
+        "stream",
+        "iterator",
+        "observable",
+        "dom-events",
+        "ecmascript-next"
+      ],
+      "owner": {
+        "account_id": 4407754,
+        "reputation": 20802,
+        "user_id": 3591628,
+        "user_type": "registered",
+        "accept_rate": 43,
+        "profile_image": "https://www.gravatar.com/avatar/bb23150633b7019b93ab234f31f98c70?s=256&d=identicon&r=PG",
+        "display_name": "Daniel Herr",
+        "link": "https://stackoverflow.com/users/3591628/daniel-herr"
+      },
+      "is_answered": true,
+      "view_count": 11918,
+      "accepted_answer_id": 47214496,
+      "answer_count": 2,
+      "score": 66,
+      "last_activity_date": 1734442812,
+      "creation_date": 1473620771,
+      "last_edit_date": 1573315658,
+      "question_id": 39439653,
+      "content_license": "CC BY-SA 4.0",
+      "link": "https://stackoverflow.com/questions/39439653/events-vs-streams-vs-observables-vs-async-iterators",
+      "title": "Events vs Streams vs Observables vs Async Iterators"
+    },
+    {
+      "tags": [
+        "javascript",
+        "iterator",
+        "async-await",
+        "generator",
+        "ecmascript-2018"
+      ],
+      "owner": {
+        "account_id": 5938271,
+        "reputation": 57,
+        "user_id": 4671320,
+        "user_type": "registered",
+        "profile_image": "https://www.gravatar.com/avatar/1aa98c4f98df8a9acd451f3a94388735?s=256&d=identicon&r=PG&f=y&so-version=2",
+        "display_name": "Corentin",
+        "link": "https://stackoverflow.com/users/4671320/corentin"
+      },
+      "is_answered": true,
+      "view_count": 537,
+      "accepted_answer_id": 51143696,
+      "answer_count": 1,
+      "score": 1,
+      "last_activity_date": 1530565353,
+      "creation_date": 1530273093,
+      "last_edit_date": 1530368409,
+      "question_id": 51101122,
+      "content_license": "CC BY-SA 4.0",
+      "link": "https://stackoverflow.com/questions/51101122/async-iterator-in-javascript",
+      "title": "Async iterator in Javascript"
+    },
+    {
+      "tags": ["javascript"],
+      "owner": {
+        "account_id": 3217420,
+        "reputation": 11090,
+        "user_id": 2715716,
+        "user_type": "registered",
+        "accept_rate": 95,
+        "profile_image": "https://i.sstatic.net/E0rgZ.jpg?s=256",
+        "display_name": "Tom&#225;š H&#252;belbauer",
+        "link": "https://stackoverflow.com/users/2715716/tom%c3%a1%c5%a1-h%c3%bcbelbauer"
+      },
+      "is_answered": true,
+      "view_count": 1411,
+      "accepted_answer_id": 57834069,
+      "answer_count": 3,
+      "score": 7,
+      "last_activity_date": 1668398539,
+      "creation_date": 1567861627,
+      "question_id": 57833958,
+      "content_license": "CC BY-SA 4.0",
+      "link": "https://stackoverflow.com/questions/57833958/javascript-async-iterator-join-reduce",
+      "title": "JavaScript async iterator join/reduce"
+    },
+    {
+      "tags": ["javascript"],
+      "owner": {
+        "account_id": 28729270,
+        "reputation": 130,
+        "user_id": 22001559,
+        "user_type": "registered",
+        "profile_image": "https://lh3.googleusercontent.com/a/AAcHTtcPZxZ2ja9DCsVmwiLgzeu5eJrIcCoLaXvQC9yEyQ=k-s256",
+        "display_name": "explosivebazooka",
+        "link": "https://stackoverflow.com/users/22001559/explosivebazooka"
+      },
+      "is_answered": true,
+      "view_count": 88,
+      "answer_count": 3,
+      "score": -3,
+      "last_activity_date": 1751087042,
+      "creation_date": 1751082392,
+      "question_id": 79682690,
+      "content_license": "CC BY-SA 4.0",
+      "link": "https://stackoverflow.com/questions/79682690/why-does-destructuring-assignment-in-javascript-skip-certain-values-in-async-ite",
+      "title": "Why does destructuring assignment in JavaScript skip certain values in async iterators?"
+    },
+    {
+      "tags": ["javascript", "flutter", "dart", "webapi", "dart-js-interop"],
+      "owner": {
+        "account_id": 12686,
+        "reputation": 42983,
+        "user_id": 25124,
+        "user_type": "registered",
+        "accept_rate": 74,
+        "profile_image": "https://www.gravatar.com/avatar/4aec6b9ca532bc29a9c23e5147efa2fa?s=256&d=identicon&r=PG",
+        "display_name": "Danny Tuppeny",
+        "link": "https://stackoverflow.com/users/25124/danny-tuppeny"
+      },
+      "is_answered": true,
+      "view_count": 785,
+      "answer_count": 2,
+      "score": 3,
+      "last_activity_date": 1725641042,
+      "creation_date": 1610829048,
+      "question_id": 65754406,
+      "content_license": "CC BY-SA 4.0",
+      "link": "https://stackoverflow.com/questions/65754406/how-to-map-a-javascript-function-returning-an-async-iterator-in-dart-using-packa",
+      "title": "How to map a JavaScript function returning an async iterator in Dart using package:js?"
+    }
+  ],
+  "has_more": true,
+  "quota_max": 300,
+  "quota_remaining": 297
+}

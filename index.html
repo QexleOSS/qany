@@ -1,0 +1,2312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>qany: keyless web search for LLM agents</title>
+    <meta
+      name="description"
+      content="qany queries 14 public sources, fuses the rankings, and reads pages as clean text. CLI, HTTP, and MCP. Free, no API keys, no signup."
+    />
+    <meta name="theme-color" content="#1b25e6" />
+    <meta
+      property="og:title"
+      content="qany: keyless web search for LLM agents"
+    />
+    <meta
+      property="og:description"
+      content="14 public sources. One ranked list. CLI, HTTP, and MCP. No API keys, no signup, no per-query bill."
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231b25e6'/%3E%3Crect x='8' y='8' width='16' height='16' fill='%23fffdf6'/%3E%3Crect x='20' y='20' width='8' height='8' fill='%23ff4d00'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Spline+Sans+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <style>
+      :root {
+        --max: 1240px;
+        --gutter: clamp(20px, 4vw, 56px);
+        --col-gap: clamp(20px, 2.2vw, 32px);
+        --ink: #0d0f12;
+        --paper: #f2f1ea;
+        --paper-2: #e8e7de;
+        --white: #fffdf6;
+        --blue: #1b25e6;
+        --blue-deep: #1118b8;
+        --orange: #ff4d00;
+        --orange-ink: #c33a00;
+        --muted: #5f615f;
+        --line: rgba(13, 15, 18, 0.16);
+        --line-strong: rgba(13, 15, 18, 0.3);
+        --line-light: rgba(255, 253, 246, 0.24);
+        --sans: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+        --mono: "Spline Sans Mono", "SFMono-Regular", Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0 0 auto;
+        height: 4px;
+        background: var(--orange);
+        z-index: 100;
+        pointer-events: none;
+      }
+      ::selection {
+        background: var(--orange);
+        color: var(--ink);
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+      a {
+        color: inherit;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+      button {
+        font: inherit;
+      }
+      code,
+      pre {
+        font-family: var(--mono);
+      }
+      img {
+        max-width: 100%;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--orange);
+        outline-offset: 3px;
+      }
+      .hero :focus-visible,
+      .cta :focus-visible {
+        outline-color: var(--white);
+      }
+
+      .skip-link {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 200;
+        padding: 10px 14px;
+        background: var(--ink);
+        color: var(--white);
+        text-decoration: none;
+        transform: translateY(-160%);
+        transition: transform 0.16s ease;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .site-header {
+        position: fixed;
+        inset: 4px 0 auto;
+        z-index: 60;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        color: var(--white);
+        border-bottom: 1px solid transparent;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .site-header.is-scrolled {
+        background: rgba(242, 241, 234, 0.94);
+        color: var(--ink);
+        border-bottom-color: var(--line);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+      }
+      .header-inner {
+        width: min(var(--max), calc(100% - 2 * var(--gutter)));
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-right: auto;
+        font-size: 1.55rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        text-decoration: none;
+      }
+      .brand-mark {
+        width: 11px;
+        height: 11px;
+        background: var(--orange);
+        flex: 0 0 auto;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 0.85rem;
+      }
+      .nav a {
+        text-decoration: none;
+        opacity: 0.72;
+        transition: opacity 0.16s ease;
+      }
+      .nav a:hover {
+        opacity: 1;
+      }
+      .header-meta {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        opacity: 0.58;
+        white-space: nowrap;
+      }
+      .header-cta {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid currentColor;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        text-decoration: none;
+        transition:
+          background 0.16s ease,
+          color 0.16s ease;
+      }
+      .header-cta:hover {
+        background: var(--orange);
+        border-color: var(--orange);
+        color: var(--ink);
+      }
+
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding: 142px 0 88px;
+        background: var(--blue);
+        color: var(--white);
+        overflow: hidden;
+      }
+      .hero-inner {
+        width: min(var(--max), calc(100% - 2 * var(--gutter)));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--col-gap);
+        align-items: start;
+      }
+      .hero-copy {
+        grid-column: 1 / span 6;
+        padding-top: 12px;
+      }
+      .hero h1 {
+        margin: 0 0 26px;
+        font-size: clamp(3.4rem, 6.6vw, 6.9rem);
+        line-height: 0.88;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        text-wrap: balance;
+      }
+      .hero h1 .line {
+        display: block;
+      }
+      .hero-sub {
+        max-width: 46ch;
+        margin-bottom: 30px;
+        font-size: clamp(1.05rem, 1.4vw, 1.24rem);
+        line-height: 1.55;
+        color: rgba(255, 253, 246, 0.8);
+      }
+      .install-strip {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 590px;
+        border: 1px solid rgba(255, 253, 246, 0.34);
+        background: rgba(255, 253, 246, 0.07);
+      }
+      .install-strip code {
+        flex: 1 1 330px;
+        padding: 13px 15px;
+        font-size: 0.75rem;
+        line-height: 1.55;
+        overflow-wrap: anywhere;
+        color: var(--white);
+      }
+      .copy-btn {
+        flex: 0 0 auto;
+        border: 0;
+        background: var(--orange);
+        color: var(--ink);
+        padding: 0 14px;
+        min-height: 42px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition:
+          background 0.16s ease,
+          color 0.16s ease;
+      }
+      .copy-btn:hover {
+        background: var(--white);
+      }
+      .copy-btn.is-copied {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px;
+        margin-top: 22px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 17px;
+        border: 1px solid transparent;
+        font-size: 0.86rem;
+        font-weight: 650;
+        line-height: 1;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          background 0.16s ease,
+          color 0.16s ease,
+          border-color 0.16s ease;
+      }
+      .button--orange {
+        background: var(--orange);
+        border-color: var(--orange);
+        color: var(--ink);
+      }
+      .button--orange:hover {
+        background: var(--white);
+        border-color: var(--white);
+      }
+      .button--outline {
+        border-color: rgba(255, 253, 246, 0.5);
+        color: var(--white);
+        background: transparent;
+      }
+      .button--outline:hover {
+        border-color: var(--white);
+        background: var(--white);
+        color: var(--ink);
+      }
+      .text-link {
+        font-size: 0.86rem;
+        color: rgba(255, 253, 246, 0.82);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+      .text-link:hover {
+        color: var(--white);
+      }
+      .hero-notes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+        margin-top: 30px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: rgba(255, 253, 246, 0.72);
+      }
+
+      .hero-demo-wrap {
+        grid-column: 7 / span 6;
+        padding-top: 38px;
+      }
+      .demo {
+        position: relative;
+        overflow: hidden;
+        background: var(--white);
+        color: var(--ink);
+        border: 1px solid rgba(255, 253, 246, 0.44);
+      }
+      .demo__head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 40px;
+        padding: 0 14px;
+        border-top: 4px solid var(--orange);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+      }
+      .demo__title {
+        font-weight: 500;
+      }
+      .demo__status {
+        margin-left: auto;
+        color: var(--muted);
+      }
+      .demo__replay {
+        border: 0;
+        background: none;
+        padding: 0;
+        color: var(--blue-deep);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+      }
+      .demo__replay:hover {
+        color: var(--orange);
+      }
+      .demo__query {
+        display: flex;
+        gap: 8px;
+        min-height: 56px;
+        padding: 17px 14px 13px;
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+      .prompt {
+        color: var(--orange-ink);
+      }
+      .query-text {
+        overflow-wrap: anywhere;
+      }
+      .cursor {
+        display: inline-block;
+        width: 7px;
+        height: 1.05em;
+        margin-left: 2px;
+        background: var(--orange);
+        vertical-align: -0.15em;
+        animation: blink 1s steps(1) infinite;
+      }
+      .demo.is-complete .cursor {
+        animation: none;
+        opacity: 0;
+      }
+      .source-rail {
+        display: grid;
+        grid-template-columns: repeat(7, auto);
+        justify-content: start;
+        gap: 5px 12px;
+        padding: 0 14px 13px;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+      .source-tick {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--muted);
+        transition: color 0.18s ease;
+      }
+      .source-tick i {
+        width: 5px;
+        height: 5px;
+        background: var(--blue);
+        display: block;
+        transition:
+          background 0.18s ease,
+          transform 0.18s ease;
+      }
+      .source-tick.is-hit {
+        color: var(--ink);
+      }
+      .source-tick.is-hit i {
+        background: var(--orange);
+        transform: scale(1.5);
+      }
+      .js .demo:not(.is-complete) .source-tick i {
+        background: var(--paper-2);
+      }
+      .js .demo:not(.is-complete) .source-tick.is-hit i {
+        background: var(--orange);
+      }
+      .results {
+        padding: 0 14px;
+      }
+      .result {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr) auto;
+        gap: 10px;
+        padding: 13px 0;
+        border-top: 1px solid var(--line);
+      }
+      .result:first-child {
+        border-top: 0;
+      }
+      .rank {
+        padding-top: 2px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .result .result-title {
+        margin: 0 0 2px;
+        font-size: 0.93rem;
+        line-height: 1.3;
+        letter-spacing: -0.012em;
+      }
+      .result .result-title a {
+        text-decoration: none;
+      }
+      .result .result-title a:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+      .url {
+        margin: 0 0 4px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1.4;
+        color: var(--muted);
+        overflow-wrap: anywhere;
+      }
+      .snippet {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        margin: 0;
+        font-size: 0.75rem;
+        line-height: 1.45;
+        color: #3f413f;
+      }
+      .tag {
+        align-self: start;
+        padding: 2px 5px;
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1.4;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .demo__foot {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        padding: 10px 14px;
+        border-top: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .demo__scan {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        height: 2px;
+        background: var(--orange);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .demo.is-scanning .demo__scan {
+        animation: scan 1.15s linear;
+      }
+      .js .demo:not(.is-complete) .result {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      .js .demo.is-complete .result {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
+        transition-delay: calc(var(--i) * 90ms);
+      }
+      .js .demo:not(.is-typing):not(.is-complete) .query-text {
+        visibility: hidden;
+      }
+      .demo-note {
+        margin: 12px 0 0;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: rgba(255, 253, 246, 0.72);
+      }
+      .demo-note code {
+        background: rgba(255, 253, 246, 0.1);
+        padding: 1px 4px;
+        color: rgba(255, 253, 246, 0.78);
+      }
+
+      .section {
+        padding: 96px 0;
+        border-top: 1px solid var(--line);
+        scroll-margin-top: 88px;
+      }
+      .section-inner {
+        width: min(var(--max), calc(100% - 2 * var(--gutter)));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 48px;
+      }
+      .section-aside {
+        position: sticky;
+        top: 102px;
+        align-self: start;
+        display: flex;
+        gap: 10px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .section-index {
+        color: var(--orange-ink);
+      }
+      .section-label {
+        text-transform: lowercase;
+      }
+      .section-content h2 {
+        max-width: 17ch;
+        margin: 0 0 26px;
+        font-size: clamp(2.35rem, 4.7vw, 4.5rem);
+        line-height: 0.92;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        text-wrap: balance;
+      }
+      .lede {
+        max-width: 63ch;
+        margin-bottom: 34px;
+        font-size: clamp(1.1rem, 1.5vw, 1.28rem);
+        line-height: 1.55;
+      }
+      .section-content p {
+        max-width: 68ch;
+      }
+      .section-content a {
+        color: var(--blue-deep);
+      }
+      .section-content a:hover {
+        color: var(--orange);
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 48px;
+        margin-top: 8px;
+      }
+      .why-item {
+        padding: 20px 0 8px;
+        border-top: 1px solid var(--line);
+      }
+      .why-item h3 {
+        margin: 0 0 7px;
+        font-size: 1.02rem;
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+      }
+      .why-item p {
+        margin: 0;
+        font-size: 0.94rem;
+        line-height: 1.55;
+        color: #3f413f;
+      }
+      .note {
+        max-width: 70ch;
+        margin: 34px 0 0;
+        padding-left: 18px;
+        border-left: 2px solid var(--orange);
+        font-size: 0.93rem;
+        line-height: 1.6;
+        color: #3f413f;
+      }
+      .note strong {
+        color: var(--ink);
+      }
+
+      .steps {
+        margin-top: 4px;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 18px;
+        padding: 22px 0 4px;
+        border-top: 1px solid var(--line);
+      }
+      .step:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .step-num {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--orange-ink);
+        padding-top: 3px;
+      }
+      .step h3 {
+        margin: 0 0 6px;
+        font-size: 1.08rem;
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+      }
+      .step p {
+        margin-bottom: 0;
+        font-size: 0.94rem;
+        color: #3f413f;
+      }
+      .optional {
+        margin-top: 34px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      .optional h3 {
+        margin: 0 0 6px;
+        font-size: 1.08rem;
+        line-height: 1.25;
+      }
+      .optional p {
+        margin-bottom: 0;
+        font-size: 0.94rem;
+        color: #3f413f;
+      }
+
+      .code {
+        margin: 16px 0 14px;
+        background: var(--ink);
+        color: var(--white);
+        border: 1px solid var(--ink);
+      }
+      .code__head {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-height: 38px;
+        padding: 0 12px;
+        border-bottom: 1px solid rgba(255, 253, 246, 0.14);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: rgba(255, 253, 246, 0.52);
+      }
+      .code__copy {
+        margin-left: auto;
+        border: 1px solid rgba(255, 253, 246, 0.22);
+        background: transparent;
+        color: rgba(255, 253, 246, 0.74);
+        padding: 2px 7px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition:
+          border-color 0.16s ease,
+          color 0.16s ease,
+          background 0.16s ease;
+      }
+      .code__copy:hover {
+        border-color: var(--orange);
+        color: var(--white);
+        background: rgba(255, 77, 0, 0.18);
+      }
+      .code__copy.is-copied {
+        border-color: var(--orange);
+        background: var(--orange);
+        color: var(--ink);
+      }
+      .code pre {
+        margin: 0;
+        padding: 14px 14px 15px;
+        overflow-x: auto;
+        font-size: 0.75rem;
+        line-height: 1.65;
+      }
+      .code code {
+        font-family: var(--mono);
+      }
+
+      .cmd-list {
+        margin-top: 6px;
+      }
+      .cmd {
+        display: grid;
+        grid-template-columns: 172px minmax(0, 1fr) 138px;
+        gap: 22px;
+        align-items: baseline;
+        padding: 15px 0;
+        border-top: 1px solid var(--line);
+      }
+      .cmd:first-child {
+        border-top: 0;
+      }
+      .cmd code {
+        font-size: 0.75rem;
+        color: var(--blue-deep);
+      }
+      .cmd p {
+        margin: 0;
+        font-size: 0.93rem;
+        line-height: 1.5;
+        color: #3f413f;
+        max-width: none;
+      }
+      .cmd span {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        line-height: 1.45;
+        color: var(--muted);
+        text-align: right;
+      }
+      .flags {
+        margin: 30px 0 0;
+      }
+      .flags > div {
+        display: grid;
+        grid-template-columns: 190px minmax(0, 1fr);
+        gap: 18px;
+        padding: 9px 0;
+        border-top: 1px solid var(--line);
+      }
+      .flags code {
+        font-size: 0.75rem;
+        color: var(--blue-deep);
+      }
+      .flags span {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: #3f413f;
+      }
+      .inline-note {
+        margin-top: 30px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        font-size: 0.93rem;
+        line-height: 1.6;
+        color: #3f413f;
+      }
+      .inline-note code {
+        font-size: 0.82em;
+        background: rgba(27, 37, 230, 0.08);
+        color: var(--blue-deep);
+        padding: 1px 4px;
+      }
+
+      .tabs {
+        margin-top: 8px;
+        border-top: 1px solid var(--line);
+      }
+      .tab-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      .tab {
+        border: 0;
+        border-bottom: 2px solid transparent;
+        background: none;
+        padding: 12px 0 10px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition:
+          color 0.16s ease,
+          border-color 0.16s ease;
+      }
+      .tab:hover {
+        color: var(--ink);
+      }
+      .tab[aria-selected="true"] {
+        color: var(--ink);
+        border-bottom-color: var(--orange);
+      }
+      .tab-panel {
+        padding-top: 22px;
+      }
+      .tab-panel[hidden] {
+        display: none;
+      }
+      .tab-panel > p {
+        margin-bottom: 0;
+        font-size: 0.94rem;
+        color: #3f413f;
+      }
+      .tab-panel .code:first-child {
+        margin-top: 0;
+      }
+      .mcp-note {
+        margin-top: 34px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        font-size: 0.92rem;
+        line-height: 1.6;
+        color: #3f413f;
+      }
+      .mcp-note strong {
+        color: var(--ink);
+      }
+
+      .source-map {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0 26px;
+        margin: 8px 0 42px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+      .source-col h3 {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 0 0 8px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .source-col .count {
+        color: var(--orange-ink);
+      }
+      .source-col ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .source-col li {
+        padding: 5px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+      .source-col li:last-child {
+        border-bottom: 0;
+      }
+
+      .how-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 48px;
+      }
+      .how-item {
+        padding: 19px 0 8px;
+        border-top: 1px solid var(--line);
+      }
+      .how-item h3 {
+        margin: 0 0 7px;
+        font-size: 1.02rem;
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+      }
+      .how-item p {
+        margin: 0;
+        font-size: 0.92rem;
+        line-height: 1.55;
+        color: #3f413f;
+        max-width: 46ch;
+      }
+      .extend {
+        margin-top: 34px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      .extend h3 {
+        margin: 0 0 6px;
+        font-size: 1.02rem;
+        line-height: 1.25;
+      }
+      .extend p {
+        margin-bottom: 0;
+        font-size: 0.93rem;
+        color: #3f413f;
+      }
+
+      .limits {
+        margin-top: 4px;
+      }
+      .limit {
+        display: grid;
+        grid-template-columns: 170px minmax(0, 1fr);
+        gap: 24px;
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+      }
+      .limit:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .limit h3 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+      }
+      .limit p {
+        margin: 0;
+        font-size: 0.93rem;
+        line-height: 1.6;
+        color: #3f413f;
+        max-width: none;
+      }
+
+      .cta {
+        position: relative;
+        overflow: hidden;
+        padding: 102px 0 96px;
+        background: var(--blue);
+        color: var(--white);
+        border-top: 1px solid var(--line-light);
+      }
+      .cta-inner {
+        position: relative;
+        z-index: 1;
+        width: min(var(--max), calc(100% - 2 * var(--gutter)));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 56px;
+        align-items: end;
+      }
+      .cta h2 {
+        max-width: 12ch;
+        margin: 0;
+        font-size: clamp(3rem, 7.3vw, 7.2rem);
+        line-height: 0.87;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        text-wrap: balance;
+      }
+      .cta-copy p {
+        max-width: 40ch;
+        margin-bottom: 24px;
+        font-size: 1.03rem;
+        line-height: 1.55;
+        color: rgba(255, 253, 246, 0.74);
+      }
+      .cta-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .cta-ghost {
+        position: absolute;
+        right: -0.03em;
+        bottom: -0.24em;
+        z-index: 0;
+        font-size: clamp(10rem, 29vw, 27rem);
+        font-weight: 800;
+        line-height: 0.7;
+        letter-spacing: -0.04em;
+        color: rgba(255, 253, 246, 0.055);
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .footer {
+        padding: 28px 0;
+        background: var(--paper);
+        border-top: 1px solid var(--line);
+      }
+      .footer-inner {
+        width: min(var(--max), calc(100% - 2 * var(--gutter)));
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px 24px;
+        font-size: 0.8rem;
+      }
+      .footer .brand {
+        margin-right: 0;
+        font-size: 1.15rem;
+      }
+      .footer .brand-mark {
+        width: 9px;
+        height: 9px;
+      }
+      .footer-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+      }
+      .footer-nav a {
+        text-decoration: none;
+        color: var(--muted);
+      }
+      .footer-nav a:hover {
+        color: var(--ink);
+      }
+      .footer-meta {
+        width: 100%;
+        margin: 2px 0 0;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      @keyframes blink {
+        0%,
+        48% {
+          opacity: 1;
+        }
+        49%,
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes scan {
+        0% {
+          top: 0;
+          opacity: 0;
+        }
+        8% {
+          opacity: 1;
+        }
+        88% {
+          opacity: 1;
+        }
+        100% {
+          top: 100%;
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 1080px) {
+        .hero {
+          padding-top: 128px;
+        }
+        .hero-copy {
+          grid-column: 1 / span 7;
+        }
+        .hero-demo-wrap {
+          grid-column: 8 / span 5;
+        }
+        .hero h1 {
+          font-size: clamp(3.3rem, 6.8vw, 6.2rem);
+        }
+        .section-inner {
+          grid-template-columns: 170px minmax(0, 1fr);
+          gap: 34px;
+        }
+        .source-rail {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          min-height: 0;
+          padding: 124px 0 76px;
+        }
+        .hero-inner {
+          display: block;
+        }
+        .hero-copy {
+          max-width: 720px;
+          padding-top: 0;
+        }
+        .hero h1 {
+          font-size: clamp(3.2rem, 9.6vw, 5.8rem);
+        }
+        .hero-demo-wrap {
+          max-width: 720px;
+          padding-top: 54px;
+        }
+        .section {
+          padding: 76px 0;
+        }
+        .section-inner {
+          display: block;
+        }
+        .section-aside {
+          position: static;
+          margin-bottom: 22px;
+        }
+        .section-content h2 {
+          max-width: 18ch;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .header-inner {
+          gap: 16px;
+        }
+        .nav a:not([href="#install"]) {
+          display: none;
+        }
+        .header-meta {
+          display: none;
+        }
+        .hero {
+          padding-top: 112px;
+        }
+        .hero h1 {
+          font-size: clamp(3rem, 12.4vw, 5rem);
+        }
+        .hero-sub {
+          font-size: 1.02rem;
+        }
+        .install-strip code {
+          flex-basis: 100%;
+        }
+        .copy-btn {
+          width: 100%;
+          min-height: 40px;
+        }
+        .why-grid {
+          display: block;
+        }
+        .why-item {
+          padding-bottom: 18px;
+        }
+        .source-map {
+          grid-template-columns: 1fr 1fr;
+          gap: 22px 24px;
+        }
+        .how-grid {
+          display: block;
+        }
+        .how-item {
+          padding-bottom: 18px;
+        }
+        .cmd {
+          grid-template-columns: 1fr;
+          gap: 3px;
+          padding: 15px 0;
+        }
+        .cmd span {
+          text-align: left;
+        }
+        .flags > div {
+          grid-template-columns: 1fr;
+          gap: 2px;
+        }
+        .limit {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        .cta {
+          padding: 76px 0 72px;
+        }
+        .cta-inner {
+          display: block;
+        }
+        .cta-copy {
+          margin-top: 34px;
+        }
+        .cta h2 {
+          font-size: clamp(3.1rem, 13vw, 5.4rem);
+        }
+        .footer-nav {
+          margin-left: 0;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .section {
+          padding: 64px 0;
+        }
+        .step {
+          grid-template-columns: 34px minmax(0, 1fr);
+          gap: 10px;
+        }
+        .result {
+          grid-template-columns: 24px minmax(0, 1fr);
+        }
+        .tag {
+          display: none;
+        }
+        .source-rail {
+          gap: 4px 9px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+        .js .demo:not(.is-complete) .result {
+          opacity: 1;
+          transform: none;
+        }
+        .js .demo:not(.is-typing):not(.is-complete) .query-text {
+          visibility: visible;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="qany home">
+          <span class="brand-mark" aria-hidden="true"></span>qany
+        </a>
+        <nav class="nav" aria-label="Page sections">
+          <a href="#why">Why</a>
+          <a href="#install">Install</a>
+          <a href="#use">Use</a>
+          <a href="#connect">Connect</a>
+          <a href="#how">How</a>
+        </nav>
+        <span class="header-meta">v0.3.0</span>
+        <a
+          class="header-cta"
+          href="https://www.npmjs.com/package/@qexle/qany"
+          target="_blank"
+          rel="noreferrer"
+          >npm</a
+        >
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <h1 id="hero-title">
+              <span class="line">Search the web.</span
+              ><span class="line">Skip the API keys.</span>
+            </h1>
+            <p class="hero-sub">
+              qany queries 14 public sources, fuses their rankings, and reads
+              pages as clean text. Use it from the CLI, over HTTP, or as an MCP
+              server.
+            </p>
+
+            <div class="install-strip">
+              <code id="hero-install-code">bun add -g @qexle/qany</code>
+              <button
+                class="copy-btn"
+                type="button"
+                data-copy="#hero-install-code"
+              >
+                Copy
+              </button>
+            </div>
+
+            <div class="hero-actions">
+              <a class="button button--orange" href="#install">Install qany</a>
+              <a class="text-link" href="#how">See how it works</a>
+            </div>
+
+            <div class="hero-notes">
+              <span>Open source, MIT</span>
+              <span>Bun 1.4.2</span>
+              <span>No per-query bill</span>
+            </div>
+          </div>
+
+          <div class="hero-demo-wrap">
+            <div
+              class="demo"
+              data-demo
+              data-query="bun htmlrewriter"
+              aria-label="Sample qany search"
+            >
+              <div class="demo__head">
+                <span class="demo__title">qany search</span>
+                <span class="demo__status">14 sources</span>
+                <button class="demo__replay" type="button" data-replay>
+                  Run again
+                </button>
+              </div>
+              <div class="demo__query">
+                <span class="prompt" aria-hidden="true">$</span>
+                <span class="query-text" data-typed>bun htmlrewriter</span>
+                <span class="cursor" aria-hidden="true"></span>
+              </div>
+              <div class="source-rail" aria-hidden="true">
+                <span class="source-tick" title="DuckDuckGo"><i></i>ddg</span>
+                <span class="source-tick" title="Brave"><i></i>brave</span>
+                <span class="source-tick" title="Bing"><i></i>bing</span>
+                <span class="source-tick" title="Right Dao"
+                  ><i></i>rightdao</span
+                >
+                <span class="source-tick" title="Bing News"><i></i>news</span>
+                <span class="source-tick" title="Mwmbl"><i></i>mwmbl</span>
+                <span class="source-tick" title="Hacker News"><i></i>hn</span>
+                <span class="source-tick" title="Wikipedia"><i></i>wiki</span>
+                <span class="source-tick" title="MDN"><i></i>mdn</span>
+                <span class="source-tick" title="Stack Overflow"
+                  ><i></i>so</span
+                >
+                <span class="source-tick" title="GitHub"><i></i>gh</span>
+                <span class="source-tick" title="npm"><i></i>npm</span>
+                <span class="source-tick" title="arXiv"><i></i>arxiv</span>
+                <span class="source-tick" title="OpenAlex"
+                  ><i></i>openalex</span
+                >
+              </div>
+              <!-- noobvious: ignore start -->
+              <div class="results">
+                <article class="result" style="--i: 0">
+                  <span class="rank">01</span>
+                  <div>
+                    <p class="result-title">
+                      <a
+                        href="https://bun.com/docs/runtime/html-rewriter"
+                        target="_blank"
+                        rel="noreferrer"
+                        >HTMLRewriter | Bun Docs</a
+                      >
+                    </p>
+                    <p class="url">bun.com/docs/runtime/html-rewriter</p>
+                    <p class="snippet">
+                      HTMLRewriter transforms HTML documents with CSS selectors.
+                    </p>
+                  </div>
+                  <span class="tag">bun.com</span>
+                </article>
+                <article class="result" style="--i: 1">
+                  <span class="rank">02</span>
+                  <div>
+                    <p class="result-title">
+                      <a
+                        href="https://bun.com/guides/html-rewriter/extract-links"
+                        target="_blank"
+                        rel="noreferrer"
+                        >Extract links from a webpage using HTMLRewriter | Bun
+                        Guides</a
+                      >
+                    </p>
+                    <p class="url">
+                      bun.com/guides/html-rewriter/extract-links
+                    </p>
+                    <p class="snippet">
+                      Extract all links from the Bun website.
+                    </p>
+                  </div>
+                  <span class="tag">bun.com</span>
+                </article>
+                <article class="result" style="--i: 2">
+                  <span class="rank">03</span>
+                  <div>
+                    <p class="result-title">
+                      <a
+                        href="https://github.com/oven-sh/bun/blob/main/docs/runtime/html-rewriter.mdx"
+                        target="_blank"
+                        rel="noreferrer"
+                        >bun/docs/runtime/html-rewriter.mdx at main ·
+                        oven-sh/bun</a
+                      >
+                    </p>
+                    <p class="url">
+                      github.com/oven-sh/bun/blob/main/docs/runtime/html-rewriter.mdx
+                    </p>
+                    <p class="snippet">
+                      HTMLRewriter transforms HTML documents with CSS selectors.
+                      It works with Response, string, and ArrayBuffer inputs.
+                    </p>
+                  </div>
+                  <span class="tag">github.com</span>
+                </article>
+              </div>
+              <div class="demo__foot">
+                <span>3 of 10 results</span>
+                <span>2.2s</span>
+                <span>no API keys</span>
+              </div>
+              <!-- noobvious: ignore end -->
+              <div class="demo__scan" aria-hidden="true"></div>
+            </div>
+            <p class="demo-note">
+              Sample output from a real run. Query:
+              <code>bun htmlrewriter</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="why" aria-labelledby="why-title">
+        <div class="section-inner">
+          <div class="section-aside">
+            <span class="section-index">01</span
+            ><span class="section-label">why</span>
+          </div>
+          <div class="section-content">
+            <h2 id="why-title">
+              One query, fourteen sources, one ranked list.
+            </h2>
+            <p class="lede">
+              qany runs your query against public search, news, code, package,
+              and paper indexes. It removes duplicate URLs, fuses the rankings
+              with Reciprocal Rank Fusion, and adjusts the order with query
+              overlap, source intent, and what you have read before.
+            </p>
+
+            <div class="why-grid">
+              <div class="why-item">
+                <h3>No keys.</h3>
+                <p>
+                  Free, with no account. qany calls endpoints that already
+                  answer browsers.
+                </p>
+              </div>
+              <div class="why-item">
+                <h3>Fourteen sources.</h3>
+                <p>
+                  DuckDuckGo, Brave, Bing, Bing News, Mwmbl, Right Dao, Hacker
+                  News, Wikipedia, MDN, Stack Overflow, GitHub, npm, arXiv, and
+                  OpenAlex.
+                </p>
+              </div>
+              <div class="why-item">
+                <h3>Three surfaces.</h3>
+                <p>
+                  The same binary runs as a CLI, an HTTP API, and an MCP server
+                  for Claude Code, OpenCode, Claude Desktop, and other clients.
+                </p>
+              </div>
+              <div class="why-item">
+                <h3>Readable pages.</h3>
+                <p>
+                  <code>qany fetch</code> extracts readable text, falls back to
+                  the Wayback Machine, and adds what it reads to a local BM25
+                  corpus.
+                </p>
+              </div>
+            </div>
+
+            <p class="note">
+              <strong>When not to use it.</strong> qany is a poor fit if you
+              need sub-second latency or an SLA, if you run high query volume or
+              pool IPs, if you need semantic search over a curated index, or if
+              you need compliance guarantees. A paid API will beat qany on vague
+              or invented-word queries.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="install" aria-labelledby="install-title">
+        <div class="section-inner">
+          <div class="section-aside">
+            <span class="section-index">02</span
+            ><span class="section-label">install</span>
+          </div>
+          <div class="section-content">
+            <h2 id="install-title">Three commands to a search.</h2>
+            <p class="lede">
+              qany runs on Bun 1.4.2, and the build and the test suite target
+              that version.
+            </p>
+
+            <div class="steps">
+              <div class="step">
+                <span class="step-num">01</span>
+                <div>
+                  <h3>Install the Bun runtime.</h3>
+                  <p>
+                    Linux needs <code>unzip</code>. qany runs on macOS and
+                    Linux.
+                  </p>
+                  <div class="code">
+                    <div class="code__head">
+                      <span>shell</span
+                      ><button class="code__copy" type="button">Copy</button>
+                    </div>
+                    <pre><code>curl -fsSL https://bun.com/install | bash</code></pre>
+                  </div>
+                </div>
+              </div>
+
+              <div class="step">
+                <span class="step-num">02</span>
+                <div>
+                  <h3>Install qany.</h3>
+                  <p>
+                    One command, straight from npm. The package ships ready to
+                    run.
+                  </p>
+                  <div class="code">
+                    <div class="code__head">
+                      <span>shell</span
+                      ><button class="code__copy" type="button">Copy</button>
+                    </div>
+                    <pre><code>bun add -g @qexle/qany</code></pre>
+                  </div>
+                </div>
+              </div>
+
+              <div class="step">
+                <span class="step-num">03</span>
+                <div>
+                  <h3>Run a search.</h3>
+                  <p>
+                    The first run populates the cache. Later runs reuse it for
+                    10 minutes.
+                  </p>
+                  <div class="code">
+                    <div class="code__head">
+                      <span>shell</span
+                      ><button class="code__copy" type="button">Copy</button>
+                    </div>
+                    <pre><code>qany search "bun htmlrewriter"</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="use" aria-labelledby="use-title">
+        <div class="section-inner">
+          <div class="section-aside">
+            <span class="section-index">03</span
+            ><span class="section-label">use</span>
+          </div>
+          <div class="section-content">
+            <h2 id="use-title">Six commands, one binary.</h2>
+            <p class="lede">
+              The CLI prints three lines per result. Pass
+              <code>--json</code> when another program is reading.
+            </p>
+
+            <div class="cmd-list">
+              <div class="cmd">
+                <code>search &lt;query&gt;</code>
+                <p>Search 14 public sources and rank the merged results.</p>
+                <span>8 results, max 20</span>
+              </div>
+              <div class="cmd">
+                <code>more &lt;url&gt;</code>
+                <p>
+                  Find pages like a URL you liked. qany seeds a web search with
+                  the page's distinctive terms.
+                </p>
+                <span>8 results</span>
+              </div>
+              <div class="cmd">
+                <code>recall &lt;query&gt;</code>
+                <p>Search only pages qany has read on this machine.</p>
+                <span>8 results</span>
+              </div>
+              <div class="cmd">
+                <code>fetch &lt;url&gt;</code>
+                <p>Read a page as text, with a Wayback Machine fallback.</p>
+                <span>20,000 char cap</span>
+              </div>
+              <div class="cmd">
+                <code>serve</code>
+                <p>Run the HTTP API on localhost.</p>
+                <span>port 8787</span>
+              </div>
+              <div class="cmd">
+                <code>mcp</code>
+                <p>Run the MCP server over stdio.</p>
+                <span>stdio</span>
+              </div>
+            </div>
+
+            <div class="flags">
+              <div>
+                <code>-n, --num &lt;n&gt;</code
+                ><span
+                  >How many answers come back. The default is 8, the ceiling is
+                  20.</span
+                >
+              </div>
+              <div><code>--json</code><span>Print one line of JSON.</span></div>
+              <div>
+                <code>--no-cache</code><span>Skip the search cache.</span>
+              </div>
+              <div>
+                <code>--rerank</code
+                ><span
+                  >Verify result pages and rank by page evidence.
+                  Question-shaped queries do this automatically.</span
+                >
+              </div>
+              <div>
+                <code>--max-chars &lt;n&gt;</code
+                ><span
+                  >Page text cap for <code>fetch</code>. Default 20,000.</span
+                >
+              </div>
+              <div>
+                <code>-p, --port &lt;n&gt;</code
+                ><span>Port for <code>serve</code>. Default 8787.</span>
+              </div>
+            </div>
+
+            <div class="code">
+              <div class="code__head">
+                <span>shell</span
+                ><button class="code__copy" type="button">Copy</button>
+              </div>
+              <pre><code>qany search "sqlite fts5 bm25" -n 5
+qany more https://bun.com/docs/runtime/html-rewriter
+qany fetch https://bun.com/docs/runtime --max-chars 4000
+qany serve -p 8787</code></pre>
+            </div>
+
+            <p class="inline-note">
+              Question-shaped searches rerank automatically. When every engine
+              returns nothing, qany retries once with DuckDuckGo's autocomplete
+              suggestion. Set <code>QANY_CACHE_DIR</code> to move the cache,
+              <code>QANY_NO_CACHE=1</code> to disable it, and
+              <code>QANY_NO_LEARN=1</code> to stop recording pages in the local
+              corpus.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="connect" aria-labelledby="connect-title">
+        <div class="section-inner">
+          <div class="section-aside">
+            <span class="section-index">04</span
+            ><span class="section-label">connect</span>
+          </div>
+          <div class="section-content">
+            <h2 id="connect-title">Point your agent at it.</h2>
+            <p class="lede">
+              qany speaks MCP over stdio. It also serves a local HTTP API. There
+              is no hosted account and no token exchange.
+            </p>
+
+            <div class="tabs" data-tabs>
+              <div
+                class="tab-list"
+                role="tablist"
+                aria-label="Connection methods"
+              >
+                <button
+                  class="tab"
+                  type="button"
+                  role="tab"
+                  id="tab-claude-code"
+                  aria-controls="panel-claude-code"
+                  aria-selected="true"
+                >
+                  Claude Code
+                </button>
+                <button
+                  class="tab"
+                  type="button"
+                  role="tab"
+                  id="tab-opencode"
+                  aria-controls="panel-opencode"
+                  aria-selected="false"
+                  tabindex="-1"
+                >
+                  OpenCode
+                </button>
+                <button
+                  class="tab"
+                  type="button"
+                  role="tab"
+                  id="tab-claude-desktop"
+                  aria-controls="panel-claude-desktop"
+                  aria-selected="false"
+                  tabindex="-1"
+                >
+                  Claude Desktop
+                </button>
+                <button
+                  class="tab"
+                  type="button"
+                  role="tab"
+                  id="tab-http"
+                  aria-controls="panel-http"
+                  aria-selected="false"
+                  tabindex="-1"
+                >
+                  HTTP API
+                </button>
+              </div>
+
+              <div
+                class="tab-panel"
+                role="tabpanel"
+                id="panel-claude-code"
+                aria-labelledby="tab-claude-code"
+              >
+                <div class="code">
+                  <div class="code__head">
+                    <span>shell</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>claude mcp add --transport stdio qany -- bunx @qexle/qany@0.3.0 mcp</code></pre>
+                </div>
+                <p>
+                  Add <code>--scope user</code> to enable qany for all your
+                  projects, or <code>--scope project</code> to write
+                  <code>.mcp.json</code> into the current project. The default
+                  scope covers this project only.
+                </p>
+                <div class="code">
+                  <div class="code__head">
+                    <span>.mcp.json</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>{
+  "mcpServers": {
+    "qany": {
+      "command": "bunx",
+      "args": ["@qexle/qany@0.3.0", "mcp"]
+    }
+  }
+}</code></pre>
+                </div>
+              </div>
+
+              <div
+                class="tab-panel"
+                role="tabpanel"
+                id="panel-opencode"
+                aria-labelledby="tab-opencode"
+                hidden
+              >
+                <div class="code">
+                  <div class="code__head">
+                    <span>shell</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>opencode mcp add qany -- bunx @qexle/qany@0.3.0 mcp</code></pre>
+                </div>
+                <p>
+                  Or add it to <code>opencode.jsonc</code>, global or project.
+                  OpenCode's <code>protocol</code> option defaults to
+                  <code>legacy</code> and also accepts <code>auto</code> and
+                  <code>2026-07-28</code>. qany answers all three. Tested
+                  against OpenCode 2.0.32.
+                </p>
+                <div class="code">
+                  <div class="code__head">
+                    <span>opencode.jsonc</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "qany": {
+        "type": "local",
+        "command": ["bunx", "@qexle/qany@0.3.0", "mcp"]
+      }
+    }
+  }
+}</code></pre>
+                </div>
+              </div>
+
+              <div
+                class="tab-panel"
+                role="tabpanel"
+                id="panel-claude-desktop"
+                aria-labelledby="tab-claude-desktop"
+                hidden
+              >
+                <p>
+                  Open Settings, go to Developer, click Edit Config, and add
+                  qany to <code>claude_desktop_config.json</code>. Restart
+                  Claude Desktop after saving.
+                </p>
+                <div class="code">
+                  <div class="code__head">
+                    <span>claude_desktop_config.json</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>{
+  "mcpServers": {
+    "qany": {
+      "command": "bunx",
+      "args": ["@qexle/qany@0.3.0", "mcp"]
+    }
+  }
+}</code></pre>
+                </div>
+              </div>
+
+              <div
+                class="tab-panel"
+                role="tabpanel"
+                id="panel-http"
+                aria-labelledby="tab-http"
+                hidden
+              >
+                <div class="code">
+                  <div class="code__head">
+                    <span>shell</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>qany serve -p 8787</code></pre>
+                </div>
+                <div class="code">
+                  <div class="code__head">
+                    <span>shell</span
+                    ><button class="code__copy" type="button">Copy</button>
+                  </div>
+                  <pre><code>curl "http://localhost:8787/search?q=bun+htmlrewriter"
+curl "http://localhost:8787/search?q=bun+htmlrewriter&amp;n=5&amp;format=json"
+curl "http://localhost:8787/fetch?url=https://example.com&amp;max_chars=4000&amp;format=json"</code></pre>
+                </div>
+                <p>
+                  The server binds to 127.0.0.1, so it answers only requests
+                  from this machine. It returns <code>text/plain</code> by
+                  default and JSON with <code>format=json</code>. Missing
+                  parameters return 400. Engine or fetch failures return 502
+                  with the reason.
+                </p>
+              </div>
+            </div>
+
+            <p class="mcp-note">
+              <strong>Any MCP client.</strong> Spawn
+              <code>bunx @qexle/qany@0.3.0 mcp</code> and speak
+              newline-delimited JSON-RPC 2.0 on stdin and stdout. qany
+              implements <code>tools/list</code>, <code>tools/call</code> for
+              <code>search</code>, <code>more</code>, <code>recall</code>, and
+              <code>fetch</code>, <code>server/discover</code> for MCP
+              2026-07-28, and the legacy <code>initialize</code> handshake.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how" aria-labelledby="how-title">
+        <div class="section-inner">
+          <div class="section-aside">
+            <span class="section-index">05</span
+            ><span class="section-label">how</span>
+          </div>
+          <div class="section-content">
+            <h2 id="how-title">A retrieval system with its own ranking.</h2>
+            <p class="lede">
+              qany runs fourteen engines and ranks the merged result itself,
+              with Reciprocal Rank Fusion, a relevance vote and a freshness
+              tie-break.
+            </p>
+
+            <div
+              class="source-map"
+              aria-label="The fourteen public sources qany queries"
+            >
+              <div class="source-col">
+                <h3>Web <span class="count">05</span></h3>
+                <ul>
+                  <li>DuckDuckGo</li>
+                  <li>Brave</li>
+                  <li>Bing</li>
+                  <li>Mwmbl</li>
+                  <li>Right Dao</li>
+                </ul>
+              </div>
+              <div class="source-col">
+                <h3>News &amp; community <span class="count">03</span></h3>
+                <ul>
+                  <li>Bing News</li>
+                  <li>Hacker News</li>
+                  <li>Wikipedia</li>
+                </ul>
+              </div>
+              <div class="source-col">
+                <h3>Docs &amp; code <span class="count">04</span></h3>
+                <ul>
+                  <li>MDN</li>
+                  <li>Stack Overflow</li>
+                  <li>GitHub</li>
+                  <li>npm</li>
+                </ul>
+              </div>
+              <div class="source-col">
+                <h3>Papers <span class="count">02</span></h3>
+                <ul>
+                  <li>arXiv</li>
+                  <li>OpenAlex</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="how-grid">
+              <div class="how-item">
+                <h3>Fuse the rankings.</h3>
+                <p>
+                  qany dedupes by normalized URL and applies Reciprocal Rank
+                  Fusion. Query overlap, local corpus reads, domain trust, and
+                  query intent adjust the final order. The rarest word in the
+                  query carries the most weight.
+                </p>
+              </div>
+              <div class="how-item">
+                <h3>Guard the edges.</h3>
+                <p>
+                  If an engine's top three results share no word of three or
+                  more characters with the query, qany drops that engine's set.
+                  The guard catches challenge pages that masquerade as results.
+                </p>
+              </div>
+              <div class="how-item">
+                <h3>Read the question twice.</h3>
+                <p>
+                  Question-shaped queries split into up to three reading angles.
+                  qany fetches the top pages, reorders them by page evidence,
+                  then searches once more for vocabulary the query lacks.
+                </p>
+              </div>
+              <div class="how-item">
+                <h3>Stay polite.</h3>
+                <p>
+                  qany serializes requests per host, waits between calls, and
+                  retries with jittered backoff. DuckDuckGo and Brave get
+                  benched for 10 minutes after a challenge. The bench survives
+                  restarts.
+                </p>
+              </div>
+              <div class="how-item">
+                <h3>Remember locally.</h3>
+                <p>
+                  Every page qany reads joins a BM25 index capped at 600 pages.
+                  Later searches read from the corpus, so your reading history
+                  can move a result.
+                </p>
+              </div>
+              <div class="how-item">
+                <h3>Fetch with a fallback.</h3>
+                <p>
+                  qany extracts readable text and falls back to the Wayback
+                  Machine or cache. The <code>(direct)</code>,
+                  <code>(wayback)</code>, or <code>(cache)</code> tag tells you
+                  which route answered.
+                </p>
+              </div>
+            </div>
+
+            <div class="extend">
+              <h3>Add a source.</h3>
+              <p>
+                Implement the <code>Engine</code> interface, add the engine to
+                the list in <code>src/search.ts</code>, and build the parser
+                against a saved fixture. <code>src/engines.ts</code> has 14
+                worked examples.
+              </p>
+              <div class="code">
+                <div class="code__head">
+                  <span>src/types.ts</span
+                  ><button class="code__copy" type="button">Copy</button>
+                </div>
+                <pre><code>export interface Engine {
+  name: string;
+  minIntervalMs: number;
+  search(query: string, num: number): Promise&lt;SearchResult[]&gt;;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="limits" aria-labelledby="limits-title">
+        <div class="section-inner">
+          <div class="section-aside">
+            <span class="section-index">06</span
+            ><span class="section-label">limits</span>
+          </div>
+          <div class="section-content">
+            <h2 id="limits-title">The honest part.</h2>
+            <p class="lede">
+              qany is free because it reads public endpoints. That trade shows
+              up in four places.
+            </p>
+
+            <div class="limits">
+              <div class="limit">
+                <h3>Throttling.</h3>
+                <p>
+                  DuckDuckGo and Brave sometimes serve challenge pages. qany
+                  benches the challenged engine, serves a stale cache entry when
+                  it has one, and falls back to the Wayback Machine when a page
+                  fails. GitHub allows 10 repository searches a minute per IP.
+                </p>
+              </div>
+              <div class="limit">
+                <h3>One machine.</h3>
+                <p>
+                  Run qany from one machine. Don't pool IPs or put it behind a
+                  large shared service. The endpoints will notice, and the
+                  cooldowns will get longer.
+                </p>
+              </div>
+              <div class="limit">
+                <h3>Privacy.</h3>
+                <p>
+                  Queries go to public search engines. The cache and reading
+                  corpus stay in <code>~/.cache/qany</code>. There is no qany
+                  account and no qany server in the middle.
+                </p>
+              </div>
+              <div class="limit">
+                <h3>Version 0.3.0.</h3>
+                <p>Command and tool names can change until 1.0.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="open-source" aria-labelledby="cta-title">
+        <div class="cta-inner">
+          <div>
+            <h2 id="cta-title">Read the source, then run a search.</h2>
+          </div>
+          <div class="cta-copy">
+            <p>
+              qany is MIT-licensed and installs from npm. If it saves you an API
+              bill, tell someone.
+            </p>
+            <div class="cta-actions">
+              <a
+                class="button button--orange"
+                href="https://www.npmjs.com/package/@qexle/qany"
+                target="_blank"
+                rel="noreferrer"
+                >Open npm</a
+              >
+              <button
+                class="button button--outline"
+                type="button"
+                data-copy-text="bun add -g @qexle/qany"
+              >
+                Copy install command
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="cta-ghost" aria-hidden="true">qany</div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <a class="brand" href="#top" aria-label="qany home"
+          ><span class="brand-mark" aria-hidden="true"></span>qany</a
+        >
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="README.md">README</a>
+          <a href="LICENSE">LICENSE</a>
+          <a
+            href="https://www.npmjs.com/package/@qexle/qany"
+            target="_blank"
+            rel="noreferrer"
+            >npm</a
+          >
+          <a href="#top">Back to top</a>
+        </nav>
+        <p class="footer-meta">
+          v0.3.0 / MIT / Single HTML file / No cookies, no analytics
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const demo = document.querySelector("[data-demo]");
+        const typed = demo ? demo.querySelector("[data-typed]") : null;
+        const ticks = demo
+          ? Array.from(demo.querySelectorAll(".source-tick"))
+          : [];
+        const replay = demo ? demo.querySelector("[data-replay]") : null;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let runId = 0;
+
+        const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        async function runDemo() {
+          if (!demo || !typed) return;
+          const id = ++runId;
+          const query = demo.dataset.query || "bun htmlrewriter";
+
+          if (reduce.matches) {
+            typed.textContent = query;
+            demo.classList.add("is-complete");
+            ticks.forEach((tick) => tick.classList.add("is-hit"));
+            return;
+          }
+
+          demo.classList.remove("is-complete", "is-scanning", "is-typing");
+          typed.textContent = "";
+          ticks.forEach((tick) => tick.classList.remove("is-hit"));
+          demo.classList.add("is-typing");
+
+          await sleep(180);
+          if (id !== runId) return;
+
+          for (const char of query) {
+            typed.textContent += char;
+            await sleep(34 + Math.random() * 46);
+            if (id !== runId) return;
+          }
+
+          await sleep(420);
+          if (id !== runId) return;
+
+          demo.classList.add("is-scanning");
+          for (const tick of ticks) {
+            tick.classList.add("is-hit");
+            await sleep(52);
+            if (id !== runId) return;
+          }
+
+          await sleep(520);
+          if (id !== runId) return;
+
+          demo.classList.remove("is-scanning", "is-typing");
+          demo.classList.add("is-complete");
+        }
+
+        if (replay) replay.addEventListener("click", runDemo);
+        if (demo) setTimeout(runDemo, 700);
+
+        const header = document.querySelector(".site-header");
+        const onScroll = () => {
+          if (header)
+            header.classList.toggle("is-scrolled", window.scrollY > 24);
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        const tabsRoot = document.querySelector("[data-tabs]");
+        if (tabsRoot) {
+          const tabs = Array.from(tabsRoot.querySelectorAll('[role="tab"]'));
+          const panels = Array.from(
+            tabsRoot.querySelectorAll('[role="tabpanel"]'),
+          );
+
+          const activate = (tab) => {
+            tabs.forEach((item) => {
+              const selected = item === tab;
+              item.setAttribute("aria-selected", String(selected));
+              item.tabIndex = selected ? 0 : -1;
+            });
+            panels.forEach((panel) => {
+              panel.hidden = panel.id !== tab.getAttribute("aria-controls");
+            });
+          };
+
+          tabs.forEach((tab, index) => {
+            tab.addEventListener("click", () => activate(tab));
+            tab.addEventListener("keydown", (event) => {
+              let next = null;
+              if (event.key === "ArrowRight")
+                next = tabs[(index + 1) % tabs.length];
+              if (event.key === "ArrowLeft")
+                next = tabs[(index - 1 + tabs.length) % tabs.length];
+              if (event.key === "Home") next = tabs[0];
+              if (event.key === "End") next = tabs[tabs.length - 1];
+              if (next) {
+                event.preventDefault();
+                next.focus();
+                activate(next);
+              }
+            });
+          });
+        }
+
+        async function writeClipboard(text) {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return;
+          }
+          const area = document.createElement("textarea");
+          area.value = text;
+          area.setAttribute("readonly", "");
+          area.style.position = "fixed";
+          area.style.top = "-9999px";
+          document.body.appendChild(area);
+          area.select();
+          const copied = document.execCommand("copy");
+          area.remove();
+          if (!copied) throw new Error("copy failed");
+        }
+
+        document
+          .querySelectorAll("[data-copy], [data-copy-text], .code__copy")
+          .forEach((button) => {
+            button.addEventListener("click", async () => {
+              const targetSelector = button.getAttribute("data-copy");
+              const target = targetSelector
+                ? document.querySelector(targetSelector)
+                : null;
+              const code = button.closest(".code")?.querySelector("code");
+              const text = (
+                button.getAttribute("data-copy-text") ||
+                target?.textContent ||
+                code?.textContent ||
+                ""
+              ).trim();
+              if (!text) return;
+
+              const original = button.textContent;
+              try {
+                await writeClipboard(text);
+                button.textContent = "Copied";
+                button.classList.add("is-copied");
+              } catch {
+                button.textContent = "Copy failed";
+              }
+              setTimeout(() => {
+                button.textContent = original;
+                button.classList.remove("is-copied");
+              }, 1800);
+            });
+          });
+      })();
+    </script>
+  </body>
+</html>

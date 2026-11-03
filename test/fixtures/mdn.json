@@ -1,0 +1,183 @@
+{
+  "documents": [
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators",
+      "score": 86.321846,
+      "title": "Iterators and generators",
+      "locale": "en-us",
+      "slug": "web/javascript/guide/iterators_and_generators",
+      "popularity": 0.01334925113957022,
+      "summary": "Iterators and Generators bring the concept of iteration directly into the core language and provide a mechanism for customizing the behavior of for...of loops.",
+      "highlight": {
+        "body": [
+          "Previous  Next\n<mark>Iterators</mark> and Generators bring the concept of iteration directly into the core language and provide a mechanism",
+          "While it is easy to imagine that all <mark>iterators</mark> could be expressed as arrays, this is not true.",
+          "Arrays must be allocated in their entirety, but <mark>iterators</mark> are consumed only as necessary."
+        ],
+        "title": ["<mark>Iterators</mark> and generators"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator",
+      "score": 62.198048,
+      "title": "AsyncIterator",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/asynciterator",
+      "popularity": 0.004753635771651834,
+      "summary": "An AsyncIterator object is an object that conforms to the async iterator protocol by providing a next() method that returns a promise fulfilling to an iterator result object. The AsyncIterator.prototype object is a hidden global object that all built-in async iterators inherit from. It provides a [Symbol.asyncIterator]() method that returns the async iterator object itself, making the async iterator also async iterable.",
+      "highlight": {
+        "body": [
+          "The <mark>Async</mark>Iterator.prototype object is a hidden global object that all built-in <mark>async</mark> <mark>iterators</mark> inherit from.",
+          ");\nCurrently, the only built-in <mark>JavaScript</mark> <mark>async</mark> iterator is the <mark>Async</mark>Generator object returned by <mark>async</mark> generator functions",
+          "All built-in <mark>async</mark> <mark>iterators</mark> are also <mark>async</mark> iterable, so you can use them in a for await...of loop:\njsconst <mark>async</mark>Iterator"
+        ],
+        "title": ["<mark>Async</mark>Iterator"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator",
+      "score": 59.95703,
+      "title": "AsyncGenerator",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/asyncgenerator",
+      "popularity": 0.005149772085956154,
+      "summary": "The AsyncGenerator object is returned by an async generator function and it conforms to both the async iterable protocol and the async iterator protocol.",
+      "highlight": {
+        "body": [
+          "There&#x27;s no <mark>JavaScript</mark> entity that corresponds to the <mark>Async</mark>Generator constructor.",
+          "called <mark>Async</mark>GeneratorFunction.prototype.prototype, because <mark>Async</mark>GeneratorFunction is an actual <mark>JavaScript</mark> entity.",
+          "console.error(e));\nfunction*\n<mark>async</mark> function*\nfunction* expression\nGenerator Function\n<mark>Async</mark> Generator Function\n<mark>Iterators</mark> and"
+        ],
+        "title": ["<mark>Async</mark>Generator"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator/Symbol.asyncIterator",
+      "score": 57.197643,
+      "title": "AsyncIterator.prototype[Symbol.asyncIterator]()",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/asynciterator/symbol.asynciterator",
+      "popularity": 0.0,
+      "summary": "The [Symbol.asyncIterator]() method of AsyncIterator instances implements the async iterable protocol and allows built-in async iterators to be consumed by most syntaxes expecting async iterables, such as for await...of loops. It returns the value of this, which is the async iterator object itself.",
+      "highlight": {
+        "body": [
+          "The [Symbol.<mark>async</mark>Iterator]() method of <mark>Async</mark>Iterator instances implements the <mark>async</mark> iterable protocol and allows built-in",
+          "<mark>async</mark> <mark>iterators</mark> to be consumed by most syntaxes expecting <mark>async</mark> iterables, such as for await...of loops.",
+          "The existence of the [Symbol.<mark>async</mark>Iterator]() method makes all built-in <mark>async</mark> <mark>iterators</mark> <mark>async</mark> iterable, and iterating syntaxes"
+        ],
+        "title": [
+          "<mark>Async</mark>Iterator.prototype[Symbol.<mark>async</mark>Iterator]()"
+        ]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Statements/async_function*",
+      "score": 56.856987,
+      "title": "async function*",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/statements/async_function*",
+      "popularity": 0.005811808118081181,
+      "summary": "The async function* declaration creates a binding of a new async generator function to a given name.",
+      "highlight": {
+        "body": [
+          "You can also define <mark>async</mark> generator functions using the <mark>async</mark> function* expression.\n<mark>async</mark> function* foo() {\nyield await Promise.resolve",
+          "An <mark>async</mark> function* declaration creates an <mark>Async</mark>GeneratorFunction object.",
+          "Each time when an <mark>async</mark> generator function is called, it returns a new <mark>Async</mark>Generator object, which conforms to the <mark>async</mark>"
+        ],
+        "title": ["<mark>async</mark> function*"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Guide",
+      "score": 53.229645,
+      "title": "JavaScript Guide",
+      "locale": "en-us",
+      "slug": "web/javascript/guide",
+      "popularity": 0.24168113739960928,
+      "summary": "The JavaScript Guide shows you how to use JavaScript and gives an overview of the language. If you need exhaustive information about a language feature, have a look at the JavaScript reference.",
+      "highlight": {
+        "body": [
+          "The <mark>JavaScript</mark> Guide shows you how to use <mark>JavaScript</mark> and gives an overview of the language.",
+          "Overview: Introduction\nAbout this guide\nAbout <mark>JavaScript</mark>\n<mark>JavaScript</mark> and Java\nECMAScript\nTools\nWhat&#x27;s next\nOverview: Grammar",
+          "<mark>Iterators</mark>\nIterables\nGenerators\nOverview: <mark>JavaScript</mark> resource management\nThe using and await using declarations\nThe DisposableStack"
+        ],
+        "title": ["<mark>JavaScript</mark> Guide"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator/next",
+      "score": 52.280037,
+      "title": "AsyncGenerator.prototype.next()",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/asyncgenerator/next",
+      "popularity": 0.0,
+      "summary": "The next() method of AsyncGenerator instances returns the next value in the sequence.",
+      "highlight": {
+        "body": [
+          "const <mark>async</mark>Gen = create<mark>Async</mark>Generator();\n<mark>async</mark>Gen.next().then((res) =&gt; console.log(res)); &#x2F;&#x2F; { value: 1, done: false }\n<mark>async</mark>Gen.next",
+          "function* create<mark>Async</mark>Generator() {\nwhile (true) {\nawait sleep(500);\nconst value = yield;\nconsole.log(value);\n}\n}\n<mark>async</mark> function",
+          "<mark>async</mark>Gen.next(2)); &#x2F;&#x2F; { value: undefined, done: false }\n}\nmain();\n<mark>async</mark> function*\n<mark>Iterators</mark> and generators guide"
+        ],
+        "title": ["<mark>Async</mark>Generator.prototype.next()"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+      "score": 49.627563,
+      "title": "async function",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/statements/async_function",
+      "popularity": 0.04437269372693727,
+      "summary": "The async function declaration creates a binding of a new async function to a given name. The await keyword is permitted within the function body, enabling asynchronous, promise-based behavior to be written in a cleaner style and avoiding the need to explicitly configure promise chains.",
+      "highlight": {
+        "body": [
+          "Note:\nThe await keyword is only valid inside <mark>async</mark> functions within regular <mark>JavaScript</mark> code.",
+          "If you use it outside of an <mark>async</mark> function&#x27;s body, you will get a SyntaxError.\nawait can be used on its own with <mark>JavaScript</mark>",
+          "await\nPromise\nDecorating <mark>async</mark> <mark>JavaScript</mark> functions on innolitics.com (2016)"
+        ],
+        "title": ["<mark>async</mark> function"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGeneratorFunction/AsyncGeneratorFunction",
+      "score": 49.60468,
+      "title": "AsyncGeneratorFunction() constructor",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/asyncgeneratorfunction/asyncgeneratorfunction",
+      "popularity": 0.0007488604297807684,
+      "summary": "The AsyncGeneratorFunction() constructor creates AsyncGeneratorFunction objects.",
+      "highlight": {
+        "body": [
+          "The <mark>Async</mark>GeneratorFunction() constructor creates <mark>Async</mark>GeneratorFunction objects.",
+          "() description apply to <mark>Async</mark>GeneratorFunction().\njsnew <mark>Async</mark>GeneratorFunction(functionBody)\nnew <mark>Async</mark>GeneratorFunction(arg1",
+          "<mark>async</mark>Gen = create<mark>Async</mark>Generator(10);\n<mark>async</mark>Gen.next().then((res) =&gt; console.log(res.value)); &#x2F;&#x2F; 20\n<mark>async</mark> function*\n<mark>async</mark> function"
+        ],
+        "title": ["<mark>Async</mark>GeneratorFunction() constructor"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator/return",
+      "score": 49.566124,
+      "title": "AsyncGenerator.prototype.return()",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/asyncgenerator/return",
+      "popularity": 0.0,
+      "summary": "The return() method of AsyncGenerator instances acts as if a return statement is inserted in the generator's body at the current suspended position, which finishes the generator and allows the generator to perform any cleanup tasks when combined with a try...finally block.",
+      "highlight": {
+        "body": [
+          "const <mark>async</mark>Gen = create<mark>Async</mark>Generator();\n<mark>async</mark>Gen.next().then((res) =&gt; console.log(res)); &#x2F;&#x2F; { value: 1, done: false }\n<mark>async</mark>Gen.return",
+          "() {\nyield Promise.resolve(1);\nyield await Promise.resolve(2);\nyield 3;\n}\nconst <mark>async</mark>Gen = create<mark>Async</mark>Generator();\n<mark>async</mark>Gen.next",
+          "res)); &#x2F;&#x2F; { value: 1, done: true }\n<mark>async</mark> function*\n<mark>Iterators</mark> and generators guide"
+        ],
+        "title": ["<mark>Async</mark>Generator.prototype.return()"]
+      }
+    }
+  ],
+  "metadata": {
+    "took_ms": 14,
+    "size": 10,
+    "page": 1,
+    "total": { "value": 3032, "relation": "eq" }
+  },
+  "suggestions": []
+}

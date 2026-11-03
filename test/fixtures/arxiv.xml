@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/3fZVih/6E5hnl+XBExnwShcRWHQ</id>
+  <title>arXiv Query: search_query=all:"rate limiting"&amp;id_list=&amp;start=0&amp;max_results=3</title>
+  <updated>2026-10-19T09:04:56Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22rate+limiting%22&amp;start=0&amp;max_results=3&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>3</opensearch:itemsPerPage>
+  <opensearch:totalResults>894</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.03279v1</id>
+    <title>Multi-Objective Adaptive Rate Limiting in Microservices Using Deep Reinforcement Learning</title>
+    <updated>2025-11-05T08:22:42Z</updated>
+    <link href="https://arxiv.org/abs/2511.03279v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.03279v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As cloud computing and microservice architectures become increasingly prevalent, API rate limiting has emerged as a critical mechanism for ensuring system stability and service quality. Traditional rate limiting algorithms, such as token bucket and sliding window, while widely adopted, struggle to adapt to dynamic traffic patterns and varying system loads. This paper proposes an adaptive rate limiting strategy based on deep reinforcement learning that dynamically balances system throughput and service latency. We design a hybrid architecture combining Deep Q-Network (DQN) and Asynchronous Advantage Actor-Critic (A3C) algorithms, modeling the rate limiting decision process as a Markov Decision Process. The system continuously monitors microservice states and learns optimal rate limiting policies through environmental interaction. Extensive experiments conducted in a Kubernetes cluster environment demonstrate that our approach achieves 23.7% throughput improvement and 31.4% P99 latency reduction compared to traditional fixed-threshold strategies under high-load scenarios. Results from a 90-day production deployment handling 500 million daily requests validate the practical effectiveness of the proposed method, with 82% reduction in service degradation incidents and 68% decrease in manual interventions.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-05T08:22:42Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Ning Lyu</name>
+    </author>
+    <author>
+      <name>Yuxi Wang</name>
+    </author>
+    <author>
+      <name>Ziyu Cheng</name>
+    </author>
+    <author>
+      <name>Qingyuan Zhang</name>
+    </author>
+    <author>
+      <name>Feng Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2002.00252v1</id>
+    <title>Alias Resolution Based on ICMP Rate Limiting</title>
+    <updated>2020-02-01T18:11:19Z</updated>
+    <link href="https://arxiv.org/abs/2002.00252v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2002.00252v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Alias resolution techniques (e.g., Midar) associate, mostly through active measurement, a set of IP addresses as belonging to a common router. These techniques rely on distinct router features that can serve as a signature. Their applicability is affected by router support of the features and the robustness of the signature. This paper presents a new alias resolution tool called Limited Ltd. that exploits ICMP rate limiting, a feature that is increasingly supported by modern routers that has not previously been used for alias resolution. It sends ICMP probes toward target interfaces in order to trigger rate limiting, extracting features from the probe reply loss traces. It uses a machine learning classifier to designate pairs of interfaces as aliases. We describe the details of the algorithm used by Limited Ltd. and illustrate its feasibility and accuracy. Limited Ltd. not only is the first tool that can perform alias resolution on IPv6 routers that do not generate monotonically increasing fragmentation IDs (e.g., Juniper routers) but it also complements the state-of-the-art techniques for IPv4 alias resolution. All of our code and the collected dataset are publicly available.</summary>
+    <category term="cs.NI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-02-01T18:11:19Z</published>
+    <arxiv:comment>Preprint to appear in Proceedings of Passive and Active Measurement (PAM 2020) Conference, Eugene, OR, March 2020</arxiv:comment>
+    <arxiv:primary_category term="cs.NI"/>
+    <author>
+      <name>Kevin Vermeulen</name>
+    </author>
+    <author>
+      <name>Burim Ljuma</name>
+    </author>
+    <author>
+      <name>Vamsi Addanki</name>
+    </author>
+    <author>
+      <name>Matthieu Gouel</name>
+    </author>
+    <author>
+      <name>Olivier Fourmaux</name>
+    </author>
+    <author>
+      <name>Timur Friedman</name>
+    </author>
+    <author>
+      <name>Reza Rejaie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2210.13088v3</id>
+    <title>Your Router is My Prober: Measuring IPv6 Networks via ICMP Rate Limiting Side Channels</title>
+    <updated>2023-05-13T08:23:47Z</updated>
+    <link href="https://arxiv.org/abs/2210.13088v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2210.13088v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Active Internet measurements face challenges when some measurements require many remote vantage points. In this paper, we propose a novel technique for measuring remote IPv6 networks via side channels in ICMP rate limiting, a required function for IPv6 nodes to limit the rate at which ICMP error messages are generated. This technique, iVantage, can to some extent use 1.1M remote routers distributed in 9.5k autonomous systems and 182 countries as our "vantage points". We apply iVantage to two different, but both challenging measurement tasks: 1) measuring the deployment of inbound source address validation (ISAV) and 2) measuring reachability between arbitrary Internet nodes. We accomplish these two tasks from only one local vantage point without controlling the targets or relying on other services within the target networks. Our large-scale ISAV measurements cover ~50% of all IPv6 autonomous systems and find ~79% of them are vulnerable to spoofing, which is the most large-scale measurement study of IPv6 ISAV to date. Our method for reachability measurements achieves over 80% precision and recall in our evaluation. Finally, we perform an Internet-wide measurement of the ICMP rate limiting implementations, present a detailed discussion on ICMP rate limiting, particularly the potential security and privacy risks in the mechanism of ICMP rate limiting, and provide possible mitigation measures. We make our code available to the community.</summary>
+    <category term="cs.NI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-10-24T10:14:16Z</published>
+    <arxiv:primary_category term="cs.NI"/>
+    <arxiv:journal_ref>Network and Distributed System Security Symposium (NDSS) 2023</arxiv:journal_ref>
+    <author>
+      <name>Long Pan</name>
+    </author>
+    <author>
+      <name>Jiahai Yang</name>
+    </author>
+    <author>
+      <name>Lin He</name>
+    </author>
+    <author>
+      <name>Zhiliang Wang</name>
+    </author>
+    <author>
+      <name>Leyao Nie</name>
+    </author>
+    <author>
+      <name>Guanglei Song</name>
+    </author>
+    <author>
+      <name>Yaozhong Liu</name>
+    </author>
+  </entry>
+</feed>

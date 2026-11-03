@@ -1,0 +1,354 @@
+{
+  "exhaustive": { "nbHits": false, "typo": false },
+  "exhaustiveNbHits": false,
+  "exhaustiveTypo": false,
+  "hits": [
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "ErenayDev"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "Cruller: <em>Bun</em>'s Zig <em>Runtime</em>, Continued on Zig 0.16"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "partial",
+          "matchedWords": ["runtime"],
+          "value": "https://ziggit.dev/t/cruller-buns-zig-<em>runtime</em>-continued-on-zig-0-16/16734"
+        }
+      },
+      "_tags": ["story", "author_ErenayDev", "story_49017344"],
+      "author": "ErenayDev",
+      "children": [
+        49018003, 49018012, 49018160, 49018190, 49018547, 49018629, 49018652,
+        49019288, 49019396, 49019543, 49019604, 49019638, 49019778, 49020343,
+        49022053, 49022201, 49024140, 49024304, 49028784, 49035806
+      ],
+      "created_at": "2026-07-23T05:40:20Z",
+      "created_at_i": 1784785220,
+      "num_comments": 117,
+      "objectID": "49017344",
+      "points": 156,
+      "story_id": 49017344,
+      "title": "Cruller: Bun's Zig Runtime, Continued on Zig 0.16",
+      "updated_at": "2026-08-03T20:53:14Z",
+      "url": "https://ziggit.dev/t/cruller-buns-zig-runtime-continued-on-zig-0-16/16734"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "notgr"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "Low-code JavaScript framework for Node/<em>Bun</em> <em>runtimes</em>"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://github.com/blackmann/mangobase"
+        }
+      },
+      "_tags": ["story", "author_notgr", "story_38585704"],
+      "author": "notgr",
+      "children": [38585705, 38585790, 38586029, 38587320],
+      "created_at": "2023-12-09T20:28:25Z",
+      "created_at_i": 1702153705,
+      "num_comments": 4,
+      "objectID": "38585704",
+      "points": 8,
+      "story_id": 38585704,
+      "title": "Low-code JavaScript framework for Node/Bun runtimes",
+      "updated_at": "2024-09-20T15:54:33Z",
+      "url": "https://github.com/blackmann/mangobase"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "jaredwiener"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "<em>Bun</em> <em>Runtime</em> on Vercel Functions"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "https://vercel.com/blog/<em>bun</em>-<em>runtime</em>-on-vercel-functions"
+        }
+      },
+      "_tags": ["story", "author_jaredwiener", "story_45752650"],
+      "author": "jaredwiener",
+      "created_at": "2025-10-29T20:32:24Z",
+      "created_at_i": 1761769944,
+      "num_comments": 0,
+      "objectID": "45752650",
+      "points": 3,
+      "story_id": 45752650,
+      "title": "Bun Runtime on Vercel Functions",
+      "updated_at": "2026-03-05T22:58:07Z",
+      "url": "https://vercel.com/blog/bun-runtime-on-vercel-functions"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "soheilpro"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "Vercel now supports the <em>Bun</em> <em>Runtime</em>"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "partial",
+          "matchedWords": ["bun"],
+          "value": "https://<em>bun</em>.com/blog/vercel-adds-native-<em>bun</em>-support"
+        }
+      },
+      "_tags": ["story", "author_soheilpro", "story_45743971"],
+      "author": "soheilpro",
+      "created_at": "2025-10-29T08:02:03Z",
+      "created_at_i": 1761724923,
+      "num_comments": 0,
+      "objectID": "45743971",
+      "points": 3,
+      "story_id": 45743971,
+      "title": "Vercel now supports the Bun Runtime",
+      "updated_at": "2026-03-05T22:57:33Z",
+      "url": "https://bun.com/blog/vercel-adds-native-bun-support"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "begoon"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "<em>Bun</em> <em>runtime</em> for Vercel Functions now accepts <em>Bun</em>.serve as an entrypoint"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "partial",
+          "matchedWords": ["bun"],
+          "value": "https://vercel.com/changelog/<em>bun</em>-serve-entrypoint-for-vercel-functions"
+        }
+      },
+      "_tags": ["story", "author_begoon", "story_50132599"],
+      "author": "begoon",
+      "created_at": "2026-10-17T16:41:15Z",
+      "created_at_i": 1792255275,
+      "num_comments": 0,
+      "objectID": "50132599",
+      "points": 2,
+      "story_id": 50132599,
+      "title": "Bun runtime for Vercel Functions now accepts Bun.serve as an entrypoint",
+      "updated_at": "2026-10-17T17:40:53Z",
+      "url": "https://vercel.com/changelog/bun-serve-entrypoint-for-vercel-functions"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "mikece"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "<em>Bun</em> JavaScript <em>Runtime</em> Adds <em>Runtime</em> Plugin API"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "https://www.i-programmer.info/news/136-open-source/15767-<em>bun</em>-javascript-<em>runtime</em>-adds-<em>runtime</em>-plugin-api-.html"
+        }
+      },
+      "_tags": ["story", "author_mikece", "story_33084434"],
+      "author": "mikece",
+      "created_at": "2022-10-04T18:14:25Z",
+      "created_at_i": 1664907265,
+      "num_comments": 0,
+      "objectID": "33084434",
+      "points": 2,
+      "story_id": 33084434,
+      "title": "Bun JavaScript Runtime Adds Runtime Plugin API",
+      "updated_at": "2024-09-20T12:16:45Z",
+      "url": "https://www.i-programmer.info/news/136-open-source/15767-bun-javascript-runtime-adds-runtime-plugin-api-.html"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "memorable"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "Bao.js: A fast, minimalist web framework for the <em>Bun</em> JavaScript <em>runtime</em>"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://github.com/mattreid1/baojs"
+        }
+      },
+      "_tags": ["story", "author_memorable", "story_32105477"],
+      "author": "memorable",
+      "children": [32108709],
+      "created_at": "2022-07-15T07:04:57Z",
+      "created_at_i": 1657868697,
+      "num_comments": 1,
+      "objectID": "32105477",
+      "points": 1,
+      "story_id": 32105477,
+      "title": "Bao.js: A fast, minimalist web framework for the Bun JavaScript runtime",
+      "updated_at": "2024-09-20T11:33:06Z",
+      "url": "https://github.com/mattreid1/baojs"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "henriquemafra"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "Open-Source Edge Functions <em>Runtime</em> (<em>Bun</em> and JavaScript)"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://github.com/henriquemafra/dropfunctions"
+        }
+      },
+      "_tags": ["story", "author_henriquemafra", "story_47626765"],
+      "author": "henriquemafra",
+      "children": [47626766],
+      "created_at": "2026-04-03T14:02:42Z",
+      "created_at_i": 1775224962,
+      "num_comments": 0,
+      "objectID": "47626765",
+      "points": 1,
+      "story_id": 47626765,
+      "title": "Open-Source Edge Functions Runtime (Bun and JavaScript)",
+      "updated_at": "2026-04-03T14:04:52Z",
+      "url": "https://github.com/henriquemafra/dropfunctions"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "fagnerbrack"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "3-Minute Introduction to <em>Bun</em> JavaScript <em>Runtime</em>"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://www.youtube.com/watch?v=FMhScnY0dME"
+        }
+      },
+      "_tags": ["story", "author_fagnerbrack", "story_32776816"],
+      "author": "fagnerbrack",
+      "created_at": "2022-09-09T08:33:55Z",
+      "created_at_i": 1662712435,
+      "num_comments": 0,
+      "objectID": "32776816",
+      "points": 1,
+      "story_id": 32776816,
+      "title": "3-Minute Introduction to Bun JavaScript Runtime",
+      "updated_at": "2024-09-20T12:04:30Z",
+      "url": "https://www.youtube.com/watch?v=FMhScnY0dME"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "thesephi"
+        },
+        "story_text": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": ["bun", "runtime"],
+          "value": "Hi HN!<p>I'd love to seek your insights on a fullstack web framework that employs a different approach: no build.<p>It's not a new concept. The folks as Preact mentioned it: <a href=\"https://preactjs.com/guide/v10/no-build-workflows/\" rel=\"nofollow\">https://preactjs.com/guide/v10/no-build-workflows/</a><p>However, in the Web Framework market, I've yet to find many that support both &quot;no build&quot; and &quot;SSR&quot;. There's always some sorts of &quot;client mount&quot; and &quot;server mount&quot; and either has (or both have) to go through a build (bundling) process.<p>With the build process, there comes additional maintenance efforts and cognitive load. I've enjoyed wrestling with tsconfig, webpack config, all sorts of presets and plugins countless times... When things work, they just work, but when we need sth a bit custom or unconventional, then we're almost always in for a tough ride. (or it's just me )<p>Not to say I'm against any existing build workflow. In fact I benefited a lot in the past from webpack, and i'm very positive about modern bundlers like Parcel 2, Turbopack, rspack, etc.<p>I just feel it'd be fair to save some slots for the &quot;no build&quot; route :)<p>To this end, I spent the last month working on a prototype of a TypeScript fullstack SSR web framework. It's compatible with Deno and <em>Bun</em> <em>runtimes</em>. I'd love to make it compatible with Node.js as well (at some point).<p>The framework registry page (<a href=\"https://jsr.io/@fullsoak/fullsoak\" rel=\"nofollow\">https://jsr.io/@fullsoak/fullsoak</a>) summarizes the motives expressed so far.<p>An example deployment is available at: <a href=\"https://fullsoak.onrender.com/app\" rel=\"nofollow\">https://fullsoak.onrender.com/app</a><p>The code behind the deployment above: <a href=\"https://github.com/fullsoak/bun-examples\">https://github.com/fullsoak/<em>bun</em>-examples</a><p>PS: you may see Preact being used &amp; mentioned everywhere but I'm positive that React is 100% supported as well (just drop-in &amp; use). I just happened to choose Preact to experience it more for myself.<p>I look forward to your thoughts :) and learning if this might (or might not) be a feasible idea at scale. And perhaps, which future directions you would see this (or something like it) goes. Thank you much for any insight!"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Show HN: A no-build fullstack SSR TypeScript web framework"
+        },
+        "url": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "https://jsr.io/@fullsoak/fullsoak"
+        }
+      },
+      "_tags": ["story", "author_thesephi", "story_43029089", "show_hn"],
+      "author": "thesephi",
+      "children": [
+        43029309, 43029337, 43029471, 43029475, 43029544, 43029595, 43029649,
+        43029650, 43029664, 43029672, 43029682, 43029747, 43029773, 43029894,
+        43030159, 43031236, 43031495, 43031576, 43053450
+      ],
+      "created_at": "2025-02-12T19:54:52Z",
+      "created_at_i": 1739390092,
+      "num_comments": 71,
+      "objectID": "43029089",
+      "points": 75,
+      "story_id": 43029089,
+      "story_text": "Hi HN!<p>I&#x27;d love to seek your insights on a fullstack web framework that employs a different approach: no build.<p>It&#x27;s not a new concept. The folks as Preact mentioned it: <a href=\"https:&#x2F;&#x2F;preactjs.com&#x2F;guide&#x2F;v10&#x2F;no-build-workflows&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;preactjs.com&#x2F;guide&#x2F;v10&#x2F;no-build-workflows&#x2F;</a><p>However, in the Web Framework market, I&#x27;ve yet to find many that support both &quot;no build&quot; and &quot;SSR&quot;. There&#x27;s always some sorts of &quot;client mount&quot; and &quot;server mount&quot; and either has (or both have) to go through a build (bundling) process.<p>With the build process, there comes additional maintenance efforts and cognitive load. I&#x27;ve enjoyed wrestling with tsconfig, webpack config, all sorts of presets and plugins countless times... When things work, they just work, but when we need sth a bit custom or unconventional, then we&#x27;re almost always in for a tough ride. (or it&#x27;s just me )<p>Not to say I&#x27;m against any existing build workflow. In fact I benefited a lot in the past from webpack, and i&#x27;m very positive about modern bundlers like Parcel 2, Turbopack, rspack, etc.<p>I just feel it&#x27;d be fair to save some slots for the &quot;no build&quot; route :)<p>To this end, I spent the last month working on a prototype of a TypeScript fullstack SSR web framework. It&#x27;s compatible with Deno and Bun runtimes. I&#x27;d love to make it compatible with Node.js as well (at some point).<p>The framework registry page (<a href=\"https:&#x2F;&#x2F;jsr.io&#x2F;@fullsoak&#x2F;fullsoak\" rel=\"nofollow\">https:&#x2F;&#x2F;jsr.io&#x2F;@fullsoak&#x2F;fullsoak</a>) summarizes the motives expressed so far.<p>An example deployment is available at: <a href=\"https:&#x2F;&#x2F;fullsoak.onrender.com&#x2F;app\" rel=\"nofollow\">https:&#x2F;&#x2F;fullsoak.onrender.com&#x2F;app</a><p>The code behind the deployment above: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;fullsoak&#x2F;bun-examples\">https:&#x2F;&#x2F;github.com&#x2F;fullsoak&#x2F;bun-examples</a><p>PS: you may see Preact being used &amp; mentioned everywhere but I&#x27;m positive that React is 100% supported as well (just drop-in &amp; use). I just happened to choose Preact to experience it more for myself.<p>I look forward to your thoughts :) and learning if this might (or might not) be a feasible idea at scale. And perhaps, which future directions you would see this (or something like it) goes. Thank you much for any insight!",
+      "title": "Show HN: A no-build fullstack SSR TypeScript web framework",
+      "updated_at": "2026-07-30T23:38:05Z",
+      "url": "https://jsr.io/@fullsoak/fullsoak"
+    }
+  ],
+  "hitsPerPage": 10,
+  "nbHits": 64687,
+  "nbPages": 100,
+  "page": 0,
+  "params": "query=bun+runtime&hitsPerPage=10&advancedSyntax=true&analyticsTags=backend",
+  "processingTimeMS": 42,
+  "processingTimingsMS": {
+    "_request": { "queue": 235, "roundTrip": 18 },
+    "fetch": { "query": 9, "scanning": 31, "total": 41 },
+    "total": 42
+  },
+  "query": "bun runtime",
+  "serverTimeMS": 278
+}

@@ -1,0 +1,2096 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Disabling user scaling might reduce weird autoscaling issues with chrome, but that would reduce accessibility. -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <link
+      rel="search"
+      type="application/opensearchdescription+xml"
+      title="MWMBL (alpha)"
+      href="/opensearch.xml"
+    />
+
+    <link href="./_app/immutable/assets/0.QEo3kUFQ.css" rel="stylesheet" />
+    <link
+      href="./_app/immutable/assets/MobileMenu.BGyHyPPC.css"
+      rel="stylesheet"
+    />
+    <link href="./_app/immutable/assets/12.C3tXaTDZ.css" rel="stylesheet" />
+    <!--[-->
+    <meta
+      property="og:title"
+      content="The truly open source search engine"
+      class="svelte-u39ujs"
+    />
+    <meta
+      property="og:site_name"
+      content="MWMBL Search Engine"
+      class="svelte-u39ujs"
+    />
+    <meta property="og:type" content="website" class="svelte-u39ujs" />
+    <meta
+      property="og:description"
+      content='Mwmbl (pronounced "mumble") is a search engine that&apos;s completely independent, open source, and non-profit.'
+      class="svelte-u39ujs"
+    />
+    <meta property="og:determiner" content="the" class="svelte-u39ujs" />
+    <!--]-->
+    <!--[-->
+    <!--[!-->
+    <!--]-->
+    <!---->
+    <script>
+      (function setInitialMode({
+        defaultMode = "system",
+        themeColors,
+        darkClassNames = ["dark"],
+        lightClassNames = [],
+        defaultTheme = "",
+        modeStorageKey = "mode-watcher-mode",
+        themeStorageKey = "mode-watcher-theme",
+      }) {
+        const rootEl = document.documentElement;
+        const mode = localStorage.getItem(modeStorageKey) ?? defaultMode;
+        const theme = localStorage.getItem(themeStorageKey) ?? defaultTheme;
+        const light =
+          mode === "light" ||
+          (mode === "system" &&
+            window.matchMedia("(prefers-color-scheme: light)").matches);
+        if (light) {
+          if (darkClassNames.length)
+            rootEl.classList.remove(...darkClassNames.filter(Boolean));
+          if (lightClassNames.length)
+            rootEl.classList.add(...lightClassNames.filter(Boolean));
+        } else {
+          if (lightClassNames.length)
+            rootEl.classList.remove(...lightClassNames.filter(Boolean));
+          if (darkClassNames.length)
+            rootEl.classList.add(...darkClassNames.filter(Boolean));
+        }
+        rootEl.style.colorScheme = light ? "light" : "dark";
+        if (themeColors) {
+          const themeMetaEl = document.querySelector(
+            'meta[name="theme-color"]',
+          );
+          if (themeMetaEl) {
+            themeMetaEl.setAttribute(
+              "content",
+              mode === "light" ? themeColors.light : themeColors.dark,
+            );
+          }
+        }
+        if (theme) {
+          rootEl.setAttribute("data-theme", theme);
+          localStorage.setItem(themeStorageKey, theme);
+        }
+        localStorage.setItem(modeStorageKey, mode);
+      })({
+        defaultMode: "system",
+        darkClassNames: ["dark"],
+        lightClassNames: [],
+        defaultTheme: "",
+        modeStorageKey: "mode-watcher-mode",
+        themeStorageKey: "mode-watcher-theme",
+      });
+    </script>
+    <!---->
+    <!--]-->
+    <!--[-->
+    <!--]-->
+    <title>bun runtime - MWMBL</title>
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">
+      <!--[--><!--[--><!----><!--[!--><!--]--><!---->
+      <div class="flex min-h-screen flex-col overflow-x-hidden svelte-u39ujs">
+        <!--[!--><!--]-->
+        <!--[!--><!---->
+        <div
+          class="header-grid mx-auto w-full max-w-(--breakpoint-xl) justify-center gap-4 p-5 svelte-grzicl"
+        >
+          <header class="contents">
+            <a
+              href="/"
+              class="col-start-1 flex flex-row items-center gap-4 max-lg:row-start-1 lg:justify-self-end"
+              ><h1 class="contents">
+                <img src="/logo.svg" alt="mwmbl" class="h-12" />
+                <img
+                  src="/mwmbl-text.svg"
+                  alt=""
+                  class="h-6 lg:hidden dark:invert"
+                /></h1
+            ></a>
+            <div class="max-lg:row-start-2">
+              <form
+                class="relative flex w-full max-w-184 flex-row items-center"
+                action="/search"
+                method="get"
+              >
+                <!--[!--><input
+                  data-slot="input"
+                  class="border-input selection:bg-primary dark:bg-input/30 selection:text-primary-foreground ring-offset-background placeholder:text-muted-foreground transition-color flex w-full min-w-0 border outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-card z-20 h-12 rounded-2xl border-none p-6 text-lg"
+                  type="search"
+                  value="bun runtime"
+                  name="q"
+                  placeholder="Search with Mwmbl..."
+                  aria-label="Search with Mwmbl"
+                /><!--]--><!---->
+                <!--[!--><!--[!--><button
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap text-base font-semibold outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 text-primary-foreground hover:bg-primary/90 hover:cursor-pointer px-4 py-2 bg-brand-gradient absolute right-3 z-30 h-8 w-8 rounded-full"
+                  type="button"
+                  title="Clear query and search again"
+                  aria-label="Clear query and search again"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="1.2em"
+                    height="1.2em"
+                    class="min-h-5 min-w-5 text-black"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"
+                    ></path></svg
+                  ><!----></button
+                ><!--]--><!--]-->
+                <!---->
+                <div
+                  data-slot="card"
+                  class="bg-card text-card-foreground flex-col gap-6 rounded-2xl absolute top-12 z-10 flex w-[calc(100%)] rounded-t-none rounded-b-2xl border-none shadow-sm p-0"
+                >
+                  <ol>
+                    <!--[!--><!--]-->
+                  </ol>
+                  <!--[!--><!--]--><!---->
+                </div>
+                <!---->
+              </form>
+              <!---->
+            </div>
+            <div
+              class="flex flex-row gap-6 justify-self-end max-lg:col-start-1 max-lg:row-start-1"
+            >
+              <div class="hidden lg:contents">
+                <!--[--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl text-base font-semibold outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 hover:cursor-pointer h-10 py-2 max-w-min px-6"
+                  href="/account"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    width="1.2em"
+                    height="1.2em"
+                    class="mr-2 min-h-5 min-w-5 text-white dark:text-black"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M4 22a8 8 0 1 1 16 0h-2a6 6 0 0 0-12 0zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6s6 2.685 6 6s-2.685 6-6 6m0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4"
+                    ></path></svg
+                  ><!---->
+                  Sign In<!----></a
+                ><!--]--><!--]--><!---->
+              </div>
+              <!----><!----><!----><!--#s1--><!--[--><!--[!--><button
+                data-slot="sheet-trigger"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl text-base font-semibold outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:cursor-pointer size-10"
+                type="button"
+                id="bits-s1"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                data-dialog-trigger=""
+                data-state="closed"
+                title="Menu"
+                aria-label="Menu"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="1.2em"
+                  height="1.2em"
+                  class="h-6 w-6 text-black dark:text-white"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M3 4h18v2H3zm6 7h12v2H9zm-6 7h18v2H3z"
+                  ></path></svg
+                ><!----></button
+              ><!--]--><!----><!--]--><!----><!---->
+              <!----><!----><!--[!--><!--]--><!----><!----><!----><!----><!---->
+            </div>
+            <div
+              class="mb-0 flex flex-row gap-4 max-lg:row-start-3 lg:col-start-2 lg:col-end-2"
+            >
+              <!--[--><a
+                data-slot="button"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 justify-center whitespace-nowrap rounded-2xl text-base font-semibold outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:cursor-pointer h-10 px-4 py-2 dark:bg-muted flex flex-row items-center gap-2"
+                href="/domain-submissions"
+                ><svg
+                  viewBox="0 0 24 24"
+                  width="1.2em"
+                  height="1.2em"
+                  class="min-h-5 min-w-5 text-black dark:text-white"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m13.06 8.111l1.415 1.414a7 7 0 0 1 0 9.9l-.354.353a7 7 0 1 1-9.9-9.9l1.415 1.415a5 5 0 1 0 7.071 7.071l.354-.354a5 5 0 0 0 0-7.07l-1.415-1.415zm6.718 6.01l-1.414-1.414a5 5 0 0 0-7.071-7.07l-.354.353a5 5 0 0 0 0 7.07l1.415 1.415l-1.415 1.414l-1.414-1.414a7 7 0 0 1 0-9.9l.354-.353a7 7 0 1 1 9.9 9.9"
+                  ></path></svg
+                ><!---->
+                Submit Domain<!----></a
+              ><!--]--><!---->
+              <!----><!----><!----><!--#s2--><!--[--><!--[!--><button
+                data-slot="popover-trigger"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 justify-center whitespace-nowrap rounded-2xl text-base font-semibold outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:cursor-pointer h-10 px-4 py-2 max-lg:hidde dark:bg-muted ml-auto flex flex-row items-center gap-2"
+                type="button"
+                id="bits-s2"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                data-state="closed"
+                data-popover-trigger=""
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="1.2em"
+                  height="1.2em"
+                  class="min-h-5 min-w-5 text-black dark:text-white"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M5 7a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0m1.5-3.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7M12 8h8V6h-8zm4 9a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0m1.5-3.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7M4 16v2h8v-2z"
+                  ></path></svg
+                ><!---->
+                Options<!----></button
+              ><!--]--><!----><!--]--><!----><!----><!---->
+              <!----><!----><!--[!--><!--]--><!----><!----><!----><!----><!---->
+            </div>
+          </header>
+          <hr class="absolute top-52 left-0 w-screen lg:top-36" />
+          <main
+            class="mt-4 flex w-full flex-col gap-4 lg:col-start-2 lg:col-end-2"
+          >
+            <div
+              class="flex flex-row flex-wrap items-center justify-between gap-x-4 gap-y-2"
+            >
+              <p class="text-muted-foreground text-xs">
+                <!--[!--><!--[!--><!--[!--><!--]--><!--]--><!--]-->
+              </p>
+              <div class="flex shrink-0 flex-row items-center gap-2">
+                <!----><!--#s3--><!--[!--><button
+                  data-slot="switch"
+                  class="data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 peer inline-flex h-[1.5rem] w-11 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none hover:cursor-pointer focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-brand-gradient"
+                  data-state="unchecked"
+                  id="seed-search-switch"
+                  role="switch"
+                  aria-checked="false"
+                  aria-required="false"
+                  data-switch-root=""
+                  type="button"
+                >
+                  <!----><!--#s4--><!--[!--><span
+                    data-slot="switch-thumb"
+                    class="bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none block size-5 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%+1px)] data-[state=unchecked]:translate-x-0"
+                    data-state="unchecked"
+                    id="bits-s4"
+                    data-switch-thumb=""
+                    ><!----></span
+                  ><!--]--><!----><!----></button
+                ><!--]-->
+                <!--[!--><!--]--><!----><!----><!---->
+                <!--[!--><!--[--><a
+                  href="/account?next=%2Fsearch%3Fq%3Dbun%2Bruntime"
+                  class="text-muted-foreground text-sm underline"
+                  >Log in to use Seed Search</a
+                ><!--]--><!--]-->
+              </div>
+              <!---->
+            </div>
+            <!--[!--><!--]-->
+            <!--[--><a
+              href="https://bun.sh/docs/runtime"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/bun.sh.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>bun.sh</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>docs</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>runtime</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Runtime</strong><!--]--><!--[!-->
+                    |
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    Docs<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Runtime</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    uses the JavaScriptCore engine, developed by Apple for
+                    Safari. JavaScriptCore usually starts and runs faster than
+                    V8, the engine used by …<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="http://jules.google/docs/changelog/2025-07-18"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/jules.google.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[!--><!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M7 10h13a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 13.262-3.131l-1.789.894A5 5 0 0 0 7 9zm3 5v2h4v-2z"
+                        ></path></svg
+                      ><!--]--><!--]-->
+                      <!--[--><span>jules.google</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>docs</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>changelog</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>2025-07-18</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->Added
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    support | Jules<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->Jules now supports
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    . You can run tasks using
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    out of the box, no extra setup required. This expands
+                    compatibility for projects that use
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    instead…<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://clickhouse.com/docs/chdb/install/bun"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/clickhouse.com.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>clickhouse.com</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>docs</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>chdb</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>install</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>bun</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->chDB for
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    - ClickHouse Documentation<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->How to install and use chDB with
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>runtime</strong
+                    ><!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://www.stepsecurity.io/blog/a-mini-shai-hulud-has-appeared"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/www.stepsecurity.io.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>www.stepsecurity.io</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>blog</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>a-mini-shai-hulud-has-appeared</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->A Mini Shai-Hulud Has Appeared: Obfuscated
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Runtime</strong><!--]--><!--[!-->
+                    Payloads …<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->
+                    StepSecurity has detected a new npm supply chain attack
+                    campaign using preinstall hooks to download the
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    JavaScript
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    and execute an 11 MB obfus…<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="http://quokkajs.com/whatsnew/bun.html"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/quokkajs.com.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[!--><!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M7 10h13a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 13.262-3.131l-1.789.894A5 5 0 0 0 7 9zm3 5v2h4v-2z"
+                        ></path></svg
+                      ><!--]--><!--]-->
+                      <!--[--><span>quokkajs.com</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>whatsnew</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>bun.html</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Runtime</strong><!--]--><!--[!-->
+                    Support<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Runtime</strong><!--]--><!--[!-->
+                    Support Quokka now supports running your code using
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    as its
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->, a
+                    fast and modern alternative to Node. If you already use
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    in one …<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://github.com/vercel-community/bun"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/github.com.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>github.com</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>vercel-community</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>bun</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->GitHub - vercel-community/<!--]--><!--[--><strong
+                      >bun</strong
+                    ><!--]--><!--[!-->: 🐰
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    for ▲ Vercel Server…<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->
+                    Saved searches Use saved searches to filter your results
+                    more quickly You signed in with another tab or window.
+                    Reload to refresh your session.You signed…<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://en.wikipedia.org/wiki/Bun_(software)"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/en.wikipedia.org.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>en.wikipedia.org</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>wiki</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>Bun_(software)</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Wikipedia</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    (software)<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->open-source software portal
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    is a JavaScript
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->,
+                    package manager and test runner designed as a drop-in
+                    replacement for Node.js.
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    uses Safari's JavaScriptCore<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://vercel.com/docs/functions/runtimes/bun"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/vercel.com.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>vercel.com</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>docs</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>functions</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>runtimes</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>bun</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->Using the
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>Runtime</strong><!--]--><!--[!-->
+                    with Vercel Functions<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->
+                    The
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    works with Routing Middleware the same way as the Node.js
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    once you set the bunVersion in your vercel.json file. Note
+                    that you'll …<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://www.youtube.com/@bunjs"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/www.youtube.com.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>www.youtube.com</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>@bunjs</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    - YouTube<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    is an all-in-one JavaScript
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    &amp; toolkit designed for speed, complete with a bundler,
+                    test runner, and Node.js-compatible package manager.<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://git.sr.ht/~yonle/bostr/commit/701fbe6"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/git.sr.ht.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>git.sr.ht</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>~yonle</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>bostr</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>commit</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>701fbe6</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Mwmbl</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->~yonle/bostr: index.js (keeper): Detect
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    environment …<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://en.wikipedia.org/wiki/Bun_(disambiguation)"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/en.wikipedia.org.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>en.wikipedia.org</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>wiki</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>Bun_(disambiguation)</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Wikipedia</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    (disambiguation)<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->medical test
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    (software), a JavaScript
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    Occipital
+                    <!--]--><!--[--><strong>bun</strong><!--]--><!--[!-->, a
+                    bulge at the back of the skull Buttocks (slang: buns), of a
+                    human body Bún, a village<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://en.wikipedia.org/wiki/V8_(JavaScript_engine)"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/en.wikipedia.org.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>en.wikipedia.org</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>wiki</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>V8_(JavaScript_engine)</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Wikipedia</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->V8 (JavaScript engine)<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->notably including the Node.js
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    system. Other server-side JavaScript runtimes use
+                    alternative engines, such as
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->
+                    (which uses JavaScriptCore) and<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><a
+              href="https://en.wikipedia.org/wiki/ECMAScript"
+              class="group max-w-full"
+              target="_self"
+              ><!---->
+              <div
+                data-slot="card"
+                class="bg-card text-card-foreground rounded-2xl grid w-full grid-cols-[1fr_4rem] flex-col gap-2 p-0"
+              >
+                <div class="flex flex-col gap-2 p-4">
+                  <div
+                    class="text-unemphasized-2 grid grid-cols-[2rem_1fr_auto] items-center gap-2 leading-snug font-medium group-hover:underline"
+                  >
+                    <div
+                      class="bg-secondary mr-3 min-h-8 min-w-8 rounded-xl p-2"
+                    >
+                      <!--[--><img
+                        src="https://icons.duckduckgo.com/ip2/en.wikipedia.org.ico"
+                        alt=""
+                        class="h-4 w-4"
+                      /><!--]-->
+                    </div>
+                    <div class="flex flex-row flex-wrap items-center">
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="mr-1 h-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zm-2 0V9A5 5 0 0 0 7 9v1zm-6 4v4h2v-4z"
+                        ></path></svg
+                      ><!--]-->
+                      <!--[--><span>en.wikipedia.org</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>wiki</span>
+                      <!--[--><svg
+                        viewBox="0 0 24 24"
+                        width="1.2em"
+                        height="1.2em"
+                        class="relative top-0.5 min-w-4"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.172 12L9.343 9.173l1.415-1.414L15 12l-4.242 4.242l-1.415-1.414z"
+                        ></path></svg
+                      ><!--]--><span>ECMAScript</span>
+                      <!--[!--><!--]--><!--]-->
+                    </div>
+                    <!--[-->
+                    <div class="self-start">
+                      <span
+                        class="bg-secondary text-secondary-foreground inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                        title="Result source"
+                        >Wikipedia</span
+                      >
+                    </div>
+                    <!--]-->
+                  </div>
+                  <!---->
+                  <div
+                    data-slot="card-title"
+                    class="text-lg tracking-tight text-accent-text leading-normal font-medium"
+                  >
+                    <!--[--><!--[!-->ECMAScript<!--]--><!--]--><!---->
+                  </div>
+                  <!---->
+                  <!---->
+                  <p
+                    data-slot="card-description"
+                    class="text-sm text-unemphasized-2"
+                  >
+                    <!--[--><!--[!-->used for server-side scripting and services
+                    using
+                    <!--]--><!--[--><strong>runtime</strong><!--]--><!--[!-->
+                    environments such as Node.js, Deno and
+                    <!--]--><!--[--><strong>Bun</strong><!--]--><!--[!-->. The
+                    ECMAScript standard does not include any input/output<!--]--><!--]--><!---->
+                  </p>
+                  <!---->
+                </div>
+                <!--[!--><!--]--><!---->
+              </div>
+              <!----></a
+            ><!--]-->
+            <!--[!--><!--]-->
+            <!--[!--><!--]-->
+          </main>
+          <section class="max-w-sm lg:col-start-3 lg:col-end-3 lg:mt-4">
+            <hr class="mt-3 mb-6 lg:hidden" />
+            <!--[!--><!--]-->
+            <!--[!--><!----><button
+              type="button"
+              class="group bg-card focus-visible:ring-ring relative block w-full cursor-pointer overflow-hidden rounded-2xl border border-black/12 text-left shadow-md transition-shadow outline-none hover:shadow-lg focus-visible:ring-2 disabled:cursor-wait dark:border-transparent dark:shadow-none svelte-3kc99t"
+            >
+              <span
+                class="bg-brand-gradient absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-15 group-focus-visible:opacity-15"
+                aria-hidden="true"
+              ></span>
+              <span class="brand-bar relative block h-1.5 svelte-3kc99t"></span>
+              <span class="relative block p-5"
+                ><span class="font-display mb-2 block text-xl font-extrabold"
+                  >Try Seed Search</span
+                >
+                <span class="text-foreground/80 block leading-relaxed"
+                  ><!---->Combine high quality results from The European Search
+                  Perspective (EUSP) with Mwmbl results and help grow our index.<!----></span
+                >
+                <span
+                  class="try-it text-primary-foreground mt-4 inline-flex h-10 items-center gap-2 rounded-md px-4 text-sm font-medium transition-colors duration-300 group-hover:text-black group-focus-visible:text-black svelte-3kc99t"
+                  ><!---->
+                  Try it</span
+                >
+                <!--[!--><!--]--><!----></span
+              ><!----></button
+            ><!----><!--]-->
+            <section class="mt-2 flex flex-col gap-1">
+              <div
+                class="text-unemphasized-2 flex flex-row flex-wrap items-center text-sm font-medium lg:justify-end"
+              >
+                <!--[--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="https://opencollective.com/mwmbl"
+                  target="_blank"
+                  ><!---->Donate<!----></a
+                ><!--]--><!---->
+                <!--[--><span class="px-1">•</span><!--]--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="https://github.com/mwmbl"
+                  target="_blank"
+                  ><!---->Source Code<!----></a
+                ><!--]--><!---->
+                <!--[--><span class="px-1">•</span><!--]--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="https://book.mwmbl.org/"
+                  target="_blank"
+                  ><!---->Book<!----></a
+                ><!--]--><!---->
+                <!--[--><span class="px-1">•</span><!--]--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="https://blog.mwmbl.org/"
+                  target="_blank"
+                  ><!---->Blog<!----></a
+                ><!--]--><!---->
+                <!--[--><span class="px-1">•</span><!--]--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="https://www.youtube.com/@mwmbl"
+                  target="_blank"
+                  ><!---->YouTube<!----></a
+                ><!--]--><!---->
+                <!--[--><span class="px-1">•</span><!--]--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="/privacy"
+                  target="_self"
+                  ><!---->Privacy Policy<!----></a
+                ><!--]--><!---->
+                <!--[--><span class="px-1">•</span><!--]--><!--[--><a
+                  data-slot="button"
+                  class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-2xl outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg:not([class*='size-'])]:size-5 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 underline-offset-4 hover:underline hover:cursor-pointer text-unemphasized-2 h-fit px-0 py-0 text-sm font-medium"
+                  href="/terms"
+                  target="_self"
+                  ><!---->Terms &amp; Conditions<!----></a
+                ><!--]--><!---->
+                <!--[!--><!--]--><!--]-->
+              </div>
+              <p
+                class="text-unemphasized-2 flex flex-row text-sm lg:justify-end"
+              >
+                © Mwmbl 2026, under the AGPL-3.0 license
+              </p>
+            </section>
+            <!---->
+          </section>
+        </div>
+        <!----><!--]--><!---->
+      </div>
+      <!--[!--><!--]--><!----><!--]-->
+      <!--[!--><!--]--><!--]-->
+
+      <script>
+        {
+          __sveltekit_szxuk1 = {
+            base: new URL(".", location).pathname.slice(0, -1),
+          };
+
+          const element = document.currentScript.parentElement;
+
+          Promise.all([
+            import("./_app/immutable/entry/start.fa8L0Bhg.js"),
+            import("./_app/immutable/entry/app.Cy7JgmtP.js"),
+          ]).then(([kit, app]) => {
+            kit.start(app, element, {
+              node_ids: [0, 12],
+              data: [
+                {
+                  type: "data",
+                  data: { loginStatus: "assumeLoggedOut" },
+                  uses: {},
+                },
+                {
+                  type: "data",
+                  data: {
+                    query: "bun runtime",
+                    results: [
+                      {
+                        url: "https://bun.sh/docs/runtime",
+                        title: [
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Runtime", is_bold: true },
+                          { value: " | ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " Docs", is_bold: false },
+                        ],
+                        extract: [
+                          { value: " ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Runtime", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value:
+                              " uses the JavaScriptCore engine, developed by Apple for Safari. JavaScriptCore usually starts and runs faster than V8, the engine used by …",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "http://jules.google/docs/changelog/2025-07-18",
+                        title: [
+                          { value: "Added ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          { value: " support | Jules", is_bold: false },
+                        ],
+                        extract: [
+                          { value: "Jules now supports ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value: " . You can run tasks using ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value:
+                              " out of the box, no extra setup required. This expands compatibility for projects that use ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " instead…", is_bold: false },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://clickhouse.com/docs/chdb/install/bun",
+                        title: [
+                          { value: "chDB for ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value: " - ClickHouse Documentation",
+                            is_bold: false,
+                          },
+                        ],
+                        extract: [
+                          {
+                            value: "How to install and use chDB with ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://www.stepsecurity.io/blog/a-mini-shai-hulud-has-appeared",
+                        title: [
+                          {
+                            value:
+                              "A Mini Shai-Hulud Has Appeared: Obfuscated ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Runtime", is_bold: true },
+                          { value: " Payloads …", is_bold: false },
+                        ],
+                        extract: [
+                          {
+                            value:
+                              " StepSecurity has detected a new npm supply chain attack campaign using preinstall hooks to download the ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " JavaScript ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value: " and execute an 11 MB obfus…",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "http://quokkajs.com/whatsnew/bun.html",
+                        title: [
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Runtime", is_bold: true },
+                          { value: " Support", is_bold: false },
+                        ],
+                        extract: [
+                          { value: " ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Runtime", is_bold: true },
+                          {
+                            value:
+                              " Support Quokka now supports running your code using ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " as its ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value:
+                              ", a fast and modern alternative to Node. If you already use ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " in one …", is_bold: false },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://github.com/vercel-community/bun",
+                        title: [
+                          {
+                            value: "GitHub - vercel-community/",
+                            is_bold: false,
+                          },
+                          { value: "bun", is_bold: true },
+                          { value: ": 🐰 ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          { value: " for ▲ Vercel Server…", is_bold: false },
+                        ],
+                        extract: [
+                          {
+                            value:
+                              " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://en.wikipedia.org/wiki/Bun_(software)",
+                        title: [
+                          { value: "Bun", is_bold: true },
+                          { value: " (software)", is_bold: false },
+                        ],
+                        extract: [
+                          {
+                            value: "open-source software portal ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " is a JavaScript ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value:
+                              ", package manager and test runner designed as a drop-in replacement for Node.js. ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value: " uses Safari's JavaScriptCore",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "wikipedia",
+                      },
+                      {
+                        url: "https://vercel.com/docs/functions/runtimes/bun",
+                        title: [
+                          { value: "Using the ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "Runtime", is_bold: true },
+                          { value: " with Vercel Functions", is_bold: false },
+                        ],
+                        extract: [
+                          { value: " The ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value:
+                              " works with Routing Middleware the same way as the Node.js ",
+                            is_bold: false,
+                          },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value:
+                              " once you set the bunVersion in your vercel.json file. Note that you'll …",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://www.youtube.com/@bunjs",
+                        title: [
+                          { value: "Bun", is_bold: true },
+                          { value: " - YouTube", is_bold: false },
+                        ],
+                        extract: [
+                          { value: "Bun", is_bold: true },
+                          {
+                            value: " is an all-in-one JavaScript ",
+                            is_bold: false,
+                          },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value:
+                              " & toolkit designed for speed, complete with a bundler, test runner, and Node.js-compatible package manager.",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://git.sr.ht/~yonle/bostr/commit/701fbe6",
+                        title: [
+                          {
+                            value: "~yonle/bostr: index.js (keeper): Detect ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          { value: " ", is_bold: false },
+                          { value: "runtime", is_bold: true },
+                          { value: " environment …", is_bold: false },
+                        ],
+                        extract: [],
+                        source: "mwmbl",
+                      },
+                      {
+                        url: "https://en.wikipedia.org/wiki/Bun_(disambiguation)",
+                        title: [
+                          { value: "Bun", is_bold: true },
+                          { value: " (disambiguation)", is_bold: false },
+                        ],
+                        extract: [
+                          { value: "medical test ", is_bold: false },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value: " (software), a JavaScript ",
+                            is_bold: false,
+                          },
+                          { value: "runtime", is_bold: true },
+                          { value: " Occipital ", is_bold: false },
+                          { value: "bun", is_bold: true },
+                          {
+                            value:
+                              ", a bulge at the back of the skull Buttocks (slang: buns), of a human body Bún, a village",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "wikipedia",
+                      },
+                      {
+                        url: "https://en.wikipedia.org/wiki/V8_(JavaScript_engine)",
+                        title: [
+                          { value: "V8 (JavaScript engine)", is_bold: false },
+                        ],
+                        extract: [
+                          {
+                            value: "notably including the Node.js ",
+                            is_bold: false,
+                          },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value:
+                              " system. Other server-side JavaScript runtimes use alternative engines, such as ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value: " (which uses JavaScriptCore) and",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "wikipedia",
+                      },
+                      {
+                        url: "https://en.wikipedia.org/wiki/ECMAScript",
+                        title: [{ value: "ECMAScript", is_bold: false }],
+                        extract: [
+                          {
+                            value:
+                              "used for server-side scripting and services using ",
+                            is_bold: false,
+                          },
+                          { value: "runtime", is_bold: true },
+                          {
+                            value: " environments such as Node.js, Deno and ",
+                            is_bold: false,
+                          },
+                          { value: "Bun", is_bold: true },
+                          {
+                            value:
+                              ". The ECMAScript standard does not include any input/output",
+                            is_bold: false,
+                          },
+                        ],
+                        source: "wikipedia",
+                      },
+                    ],
+                    searchMode: "standard",
+                    seedUsage: null,
+                    seedFallback: null,
+                    seedQuotaHit: false,
+                    pagesIndexed: null,
+                    seedCrawl: null,
+                    seedCrawlAttempt: null,
+                    seedSearchEnabled: false,
+                    seedSearchQuotaExhausted: false,
+                  },
+                  uses: { search_params: ["q"] },
+                },
+              ],
+              form: null,
+              error: null,
+              remote: null,
+            });
+          });
+        }
+      </script>
+    </div>
+  </body>
+</html>

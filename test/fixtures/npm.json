@@ -1,0 +1,202 @@
+{
+  "objects": [
+    {
+      "downloads": { "monthly": 85410, "weekly": 15111 },
+      "dependents": "2",
+      "updated": "2026-10-18T12:21:27.700Z",
+      "searchScore": 586.1099,
+      "package": {
+        "name": "fast-readable-async-iterator",
+        "keywords": [
+          "async",
+          "iterator",
+          "browser",
+          "readable",
+          "stream",
+          "caching",
+          "low-latency"
+        ],
+        "version": "2.0.0",
+        "description": "Fast Async Iterator for browser Readable Streams.",
+        "sanitized_name": "fast-readable-async-iterator",
+        "publisher": {
+          "email": "casistaken@gmail.com",
+          "username": "thaunknown"
+        },
+        "maintainers": [
+          { "email": "casistaken@gmail.com", "username": "thaunknown" }
+        ],
+        "license": "MIT",
+        "date": "2023-12-10T22:55:09.686Z",
+        "links": {
+          "homepage": "https://github.com/ThaUnknown/fast-readable-async-iterator#readme",
+          "repository": "git+https://github.com/ThaUnknown/fast-readable-async-iterator.git",
+          "bugs": "https://github.com/ThaUnknown/fast-readable-async-iterator/issues",
+          "npm": "https://www.npmjs.com/package/fast-readable-async-iterator"
+        }
+      },
+      "score": {
+        "final": 586.1099,
+        "detail": { "popularity": 1, "quality": 1, "maintenance": 1 }
+      },
+      "flags": { "insecure": 0 }
+    },
+    {
+      "downloads": { "monthly": 489095, "weekly": 100110 },
+      "dependents": "55",
+      "updated": "2026-10-18T12:15:23.439Z",
+      "searchScore": 578.1684,
+      "package": {
+        "name": "it-drain",
+        "keywords": [],
+        "version": "3.0.12",
+        "description": "Empties an async iterator",
+        "sanitized_name": "it-drain",
+        "publisher": {
+          "email": "npm-oidc-no-reply@github.com",
+          "trustedPublisher": {
+            "oidcConfigId": "oidc:5246dd62-e5a8-44af-ab5b-770ce4c215b9",
+            "id": "github"
+          },
+          "username": "GitHub Actions"
+        },
+        "maintainers": [
+          { "email": "alex@achingbrain.net", "username": "achingbrain" }
+        ],
+        "license": "Apache-2.0 OR MIT",
+        "date": "2026-04-10T15:27:47.942Z",
+        "links": {
+          "homepage": "https://github.com/achingbrain/it/tree/main/packages/it-drain#readme",
+          "repository": "git+https://github.com/achingbrain/it.git",
+          "bugs": "https://github.com/achingbrain/it/issues",
+          "npm": "https://www.npmjs.com/package/it-drain"
+        }
+      },
+      "score": {
+        "final": 578.1684,
+        "detail": { "popularity": 1, "quality": 1, "maintenance": 1 }
+      },
+      "flags": { "insecure": 0 }
+    },
+    {
+      "downloads": { "monthly": 104186, "weekly": 17637 },
+      "dependents": "12",
+      "updated": "2026-10-18T12:21:46.115Z",
+      "searchScore": 543.1066,
+      "package": {
+        "name": "@comunica/utils-iterator",
+        "keywords": [
+          "semantic",
+          "actor",
+          "framework",
+          "events",
+          "messages",
+          "asynciterator",
+          "iterator"
+        ],
+        "version": "5.0.0",
+        "description": "Async iterator utilities",
+        "sanitized_name": "@comunica/utils-iterator",
+        "publisher": {
+          "email": "rubensworks@gmail.com",
+          "username": "rubensworks"
+        },
+        "maintainers": [
+          { "email": "joachimvh@gmail.com", "username": "joachimvh" },
+          { "email": "rubensworks@gmail.com", "username": "rubensworks" },
+          { "email": "ruben@verborgh.org", "username": "rubenverborgh" },
+          { "email": "dedecker.ruben@gmail.com", "username": "dexagod" },
+          { "email": "jmwright.045@gmail.com", "username": "jeswr" }
+        ],
+        "license": "MIT",
+        "date": "2026-01-08T05:16:24.811Z",
+        "links": {
+          "homepage": "https://comunica.dev/",
+          "repository": "git+https://github.com/comunica/comunica.git",
+          "bugs": "https://github.com/comunica/comunica/issues",
+          "npm": "https://www.npmjs.com/package/@comunica/utils-iterator"
+        }
+      },
+      "score": {
+        "final": 543.1066,
+        "detail": { "popularity": 1, "quality": 1, "maintenance": 1 }
+      },
+      "flags": { "insecure": 0 }
+    },
+    {
+      "downloads": { "monthly": 217617, "weekly": 20524 },
+      "dependents": "3",
+      "updated": "2026-10-18T12:21:05.839Z",
+      "searchScore": 534.8949,
+      "package": {
+        "name": "line-async-iterator",
+        "keywords": [],
+        "version": "5.0.1",
+        "description": "Async Iterator for every line of a Readable Stream",
+        "sanitized_name": "line-async-iterator",
+        "publisher": {
+          "email": "nathan@tootallnate.net",
+          "username": "tootallnate"
+        },
+        "maintainers": [
+          { "email": "nathan@tootallnate.net", "username": "tootallnate" }
+        ],
+        "license": "MIT",
+        "date": "2024-02-18T22:39:50.037Z",
+        "links": { "npm": "https://www.npmjs.com/package/line-async-iterator" }
+      },
+      "score": {
+        "final": 534.8949,
+        "detail": { "popularity": 1, "quality": 1, "maintenance": 1 }
+      },
+      "flags": { "insecure": 0 }
+    },
+    {
+      "downloads": { "monthly": 80408, "weekly": 15017 },
+      "dependents": "9",
+      "updated": "2026-10-18T12:16:43.025Z",
+      "searchScore": 534.811,
+      "package": {
+        "name": "join-async-iterator",
+        "keywords": [
+          "mutlistream",
+          "multi-stream",
+          "multi-asnyc-iterator",
+          "join-async-iterator",
+          "queue-asnyc-iterator",
+          "merge-async-iterator",
+          "iterator",
+          "async",
+          "async-iterator",
+          "stream",
+          "node-stream"
+        ],
+        "version": "1.1.1",
+        "description": "An async iterator that joins multiple other async iterators in order, one after another.",
+        "sanitized_name": "join-async-iterator",
+        "publisher": {
+          "email": "casistaken@gmail.com",
+          "username": "thaunknown"
+        },
+        "maintainers": [
+          { "email": "casistaken@gmail.com", "username": "thaunknown" }
+        ],
+        "license": "MIT",
+        "date": "2022-07-10T23:18:03.237Z",
+        "links": {
+          "homepage": "https://github.com/ThaUnknown/join-async-iterator#readme",
+          "repository": "git+https://github.com/ThaUnknown/join-async-iterator.git",
+          "bugs": "https://github.com/ThaUnknown/join-async-iterator/issues",
+          "npm": "https://www.npmjs.com/package/join-async-iterator"
+        }
+      },
+      "score": {
+        "final": 534.811,
+        "detail": { "popularity": 1, "quality": 1, "maintenance": 1 }
+      },
+      "flags": { "insecure": 0 }
+    }
+  ],
+  "total": 118817,
+  "time": "2026-10-19T06:48:15.416Z"
+}

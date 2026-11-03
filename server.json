@@ -1,0 +1,58 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.1QEXLE/qany",
+  "title": "qany",
+  "description": "Search the web without an API key. 13 public sources, fused ranking, page reading.",
+  "websiteUrl": "https://github.com/1QEXLE/qany",
+  "repository": {
+    "url": "https://github.com/1QEXLE/qany",
+    "source": "github"
+  },
+  "version": "0.3.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@qexle/qany",
+      "version": "0.3.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "bunx",
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp",
+          "valueHint": "subcommand",
+          "description": "Start the MCP server on stdio"
+        }
+      ],
+      "environmentVariables": [
+        {
+          "name": "QANY_CACHE_DIR",
+          "description": "Directory for the page cache and the reading corpus",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "QANY_NO_CACHE",
+          "description": "Set to 1 to skip the disk cache",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "QANY_NO_LEARN",
+          "description": "Set to 1 to stop recording pages in the local corpus",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "tool": "qexle-publisher",
+      "version": "1.0.0"
+    }
+  }
+}

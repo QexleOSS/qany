@@ -1,0 +1,99 @@
+{
+  "batchcomplete": "",
+  "continue": { "sroffset": 10, "continue": "-||" },
+  "query": {
+    "searchinfo": { "totalhits": 85 },
+    "search": [
+      {
+        "ns": 0,
+        "title": "Bun (software)",
+        "pageid": 73803975,
+        "size": 9262,
+        "wordcount": 833,
+        "snippet": "open-source software portal <span class=\"searchmatch\">Bun</span> is a JavaScript <span class=\"searchmatch\">runtime</span>, package manager and test runner designed as a drop-in replacement for Node.js. <span class=\"searchmatch\">Bun</span> uses Safari&#039;s JavaScriptCore",
+        "timestamp": "2026-09-13T00:43:10Z"
+      },
+      {
+        "ns": 0,
+        "title": "Bun (disambiguation)",
+        "pageid": 10995385,
+        "size": 2377,
+        "wordcount": 305,
+        "snippet": "medical test <span class=\"searchmatch\">Bun</span> (software), a JavaScript <span class=\"searchmatch\">runtime</span> Occipital <span class=\"searchmatch\">bun</span>, a bulge at the back of the skull Buttocks (slang: <span class=\"searchmatch\">buns</span>), of a human body <span class=\"searchmatch\">B\u00fan</span>, a village",
+        "timestamp": "2025-10-12T16:54:01Z"
+      },
+      {
+        "ns": 0,
+        "title": "V8 (JavaScript engine)",
+        "pageid": 19140716,
+        "size": 12982,
+        "wordcount": 1071,
+        "snippet": "notably including the Node.js <span class=\"searchmatch\">runtime</span> system. Other server-side JavaScript <span class=\"searchmatch\">runtimes</span> use alternative engines, such as <span class=\"searchmatch\">Bun</span> (which uses JavaScriptCore) and",
+        "timestamp": "2026-10-07T15:38:27Z"
+      },
+      {
+        "ns": 0,
+        "title": "ECMAScript",
+        "pageid": 188515,
+        "size": 18431,
+        "wordcount": 1644,
+        "snippet": "used for server-side scripting and services using <span class=\"searchmatch\">runtime</span> environments such as Node.js, Deno and <span class=\"searchmatch\">Bun</span>. The ECMAScript standard does not include any input/output",
+        "timestamp": "2026-10-10T09:50:19Z"
+      },
+      {
+        "ns": 0,
+        "title": "List of JavaScript engines",
+        "pageid": 1770496,
+        "size": 48753,
+        "wordcount": 2365,
+        "snippet": "browsers; For example, the V8 engine is a core component of the Node.js <span class=\"searchmatch\">runtime</span> system. They are also called ECMAScript engines, after the official name",
+        "timestamp": "2026-10-11T00:37:21Z"
+      },
+      {
+        "ns": 0,
+        "title": "Deno (software)",
+        "pageid": 60786278,
+        "size": 14039,
+        "wordcount": 1291,
+        "snippet": "Free and open-source software portal Deno (/di\u02d0no\u028a/) is a <span class=\"searchmatch\">runtime</span> for JavaScript, TypeScript, and WebAssembly that is based on the V8 JavaScript engine",
+        "timestamp": "2026-10-11T20:05:45Z"
+      },
+      {
+        "ns": 0,
+        "title": "List of TypeScript software and tools",
+        "pageid": 82427524,
+        "size": 9700,
+        "wordcount": 985,
+        "snippet": "transpilation support via plugins <span class=\"searchmatch\">Bun</span> \u2014 JavaScript <span class=\"searchmatch\">runtime</span> and toolkit including a package manager, bundler and test runner. Deno \u2014 <span class=\"searchmatch\">runtime</span> environment with built-in",
+        "timestamp": "2026-10-09T21:49:05Z"
+      },
+      {
+        "ns": 0,
+        "title": "Hono.js",
+        "pageid": 83911176,
+        "size": 4215,
+        "wordcount": 350,
+        "snippet": "designed to run on JavaScript <span class=\"searchmatch\">runtimes</span> and platforms that provide compatible Web APIs, including Cloudflare Workers, Deno, <span class=\"searchmatch\">Bun</span>, Node.js, Vercel, AWS Lambda",
+        "timestamp": "2026-10-03T16:33:11Z"
+      },
+      {
+        "ns": 0,
+        "title": "Pnpm",
+        "pageid": 77840888,
+        "size": 4757,
+        "wordcount": 363,
+        "snippet": "originally developed in 2016 by Rico Sta. Cruz for the Node.js JavaScript <span class=\"searchmatch\">runtime</span> environment as a disk space-efficient alternative to npm. The first commit",
+        "timestamp": "2026-09-08T01:41:40Z"
+      },
+      {
+        "ns": 0,
+        "title": "Outline of the JavaScript programming language",
+        "pageid": 81389586,
+        "size": 11149,
+        "wordcount": 1148,
+        "snippet": "language \u2013 allows various operations to be determined and executed at <span class=\"searchmatch\">runtime</span>, such as declaring data types, unlike in static languages, where the structure",
+        "timestamp": "2026-05-11T12:54:30Z"
+      }
+    ]
+  }
+}

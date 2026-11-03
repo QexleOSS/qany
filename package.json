@@ -1,0 +1,59 @@
+{
+  "name": "@qexle/qany",
+  "mcpName": "io.github.1QEXLE/qany",
+  "version": "0.3.0",
+  "description": "Keyless web search and page reading for LLM agents. 14 public sources, disk cache, MCP server. Free, no API keys, no signup.",
+  "type": "module",
+  "bin": {
+    "qany": "./src/cli.ts"
+  },
+  "files": [
+    "src",
+    "eval",
+    "skills",
+    "docs/demo.gif",
+    "docs/hero.png",
+    "index.html",
+    "server.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./search": "./src/search.ts",
+    "./fetch": "./src/fetch.ts",
+    "./types": "./src/types.ts"
+  },
+  "engines": {
+    "bun": ">=1.4.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "search": "bun run src/cli.ts search",
+    "fetch": "bun run src/cli.ts fetch",
+    "serve": "bun run src/cli.ts serve",
+    "mcp": "bun run src/cli.ts mcp",
+    "test": "bun test",
+    "typecheck": "bunx tsc --noEmit",
+    "eval": "bun run eval/run.ts",
+    "prepublishOnly": "bun test && bun run typecheck"
+  },
+  "keywords": [
+    "search",
+    "web-search",
+    "mcp",
+    "mcp-server",
+    "keyless",
+    "cli",
+    "llm",
+    "agent",
+    "scraping",
+    "research"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "^1.4.4"
+  }
+}

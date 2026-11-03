@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Tests
+        run: bun test test
+      - name: Type check
+        run: bunx tsc --noEmit
+      - name: Check the skill copy in sync
+        run: |
+          diff skills/qany/SKILL.md .agents/skills/qany/SKILL.md
+          diff skills/qany/SKILL.md .claude/skills/qany/SKILL.md
